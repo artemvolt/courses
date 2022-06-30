@@ -134,6 +134,7 @@ class LinkedListTestDelete(unittest.TestCase):
     def test_find_all(self):
         n3 = Node(30)
         n4 = Node(30)
+        n5 = Node(30)
 
         linked_list = LinkedList()
         found = linked_list.find_all(n3.value)
@@ -146,3 +147,20 @@ class LinkedListTestDelete(unittest.TestCase):
         linked_list.add_in_tail(n4)
         found = linked_list.find_all(n3.value)
         self.assertEqual(2, len(found))
+
+        linked_list.add_in_tail(n5)
+        found = linked_list.find_all(n3.value)
+        self.assertEqual(3, len(found))
+
+    def test_len(self):
+        n3 = Node(30)
+        n4 = Node(30)
+
+        linked_list = LinkedList()
+        self.assertEqual(0, linked_list.len())
+
+        linked_list.add_in_tail(n3)
+        self.assertEqual(1, linked_list.len())
+
+        linked_list.add_in_tail(n4)
+        self.assertEqual(2, linked_list.len())
