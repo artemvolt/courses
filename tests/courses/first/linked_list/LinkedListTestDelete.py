@@ -164,3 +164,49 @@ class LinkedListTestDelete(unittest.TestCase):
 
         linked_list.add_in_tail(n4)
         self.assertEqual(2, linked_list.len())
+
+    def test_insert(self):
+        n3 = Node(31)
+        n4 = Node(32)
+        n5 = Node(33)
+        n6 = Node(33)
+        n7 = Node(33)
+
+        linked_list = LinkedList()
+        linked_list.insert(None, n3)
+        self.assertEqual(1, linked_list.len())
+        self.assertEqual(n3, linked_list.head)
+        self.assertEqual(n3, linked_list.tail)
+
+        linked_list.insert(None, n4)
+        self.assertEqual(2, linked_list.len())
+        self.assertEqual(n4, linked_list.head)
+        self.assertEqual(n3, linked_list.head.next)
+        self.assertEqual(n3, linked_list.tail)
+
+        # добавляем в середину
+        # на выходе: n4 -> n5 -> n3
+        linked_list.insert(n4, n5)
+        self.assertEqual(n4, linked_list.head)
+        self.assertEqual(n5, linked_list.head.next)
+        self.assertEqual(n3, linked_list.head.next.next)
+        self.assertEqual(n3, linked_list.tail)
+
+        # добавляем в конец
+        # на выходе: n4 -> n5 -> n3 -> n6
+        linked_list.insert(n3, n6)
+        self.assertEqual(n4, linked_list.head)
+        self.assertEqual(n5, n4.next)
+        self.assertEqual(n3, n5.next)
+        self.assertEqual(n6, n3.next)
+        self.assertEqual(n6, linked_list.tail)
+
+        # и еще раз в середину
+        # на выходе: n4 -> n5 -> n7 -> n3 -> n6
+        linked_list.insert(n5, n7)
+        self.assertEqual(n4, linked_list.head)
+        self.assertEqual(n5, n4.next)
+        self.assertEqual(n7, n5.next)
+        self.assertEqual(n3, n7.next)
+        self.assertEqual(n6, n3.next)
+        self.assertEqual(n6, linked_list.tail)

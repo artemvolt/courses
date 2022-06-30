@@ -99,11 +99,31 @@ class LinkedList:
     def len(self):
         length = 0
         node = self.head
-        while node != None:
+        while node is not None:
             length += 1
             node = node.next
 
         return length
 
     def insert(self, afterNode, newNode):
-        pass  # здесь будет ваш код
+        if afterNode is None:
+            head = self.head
+            if self.len() == 0:
+                self.tail = newNode
+
+            self.head = newNode
+            self.head.next = head
+            return
+
+        if self.len() == 1 or afterNode == self.tail:
+            afterNode.next = newNode
+            self.tail = newNode
+            return
+
+        newNode.next = afterNode.next
+        afterNode.next = newNode
+
+        # foundNode = self.head
+        # while foundNode is not None:
+        #     if
+
