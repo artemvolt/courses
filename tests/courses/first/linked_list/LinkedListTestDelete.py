@@ -131,4 +131,18 @@ class LinkedListTestDelete(unittest.TestCase):
         self.assertIsNone(linked_list.head)
         self.assertIsNone(linked_list.tail)
 
+    def test_find_all(self):
+        n3 = Node(30)
+        n4 = Node(30)
 
+        linked_list = LinkedList()
+        found = linked_list.find_all(n3.value)
+        self.assertEqual(0, len(found))
+
+        linked_list.add_in_tail(n3)
+        found = linked_list.find_all(n3.value)
+        self.assertEqual(1, len(found))
+
+        linked_list.add_in_tail(n4)
+        found = linked_list.find_all(n3.value)
+        self.assertEqual(2, len(found))
