@@ -10,7 +10,6 @@ def linked_list_sum(first, second):
     new_list = LinkedList()
 
     while head_first is not None:
-
         sum_node = Node(head_first.value + head_second.value)
         new_list.add_in_tail(sum_node)
 

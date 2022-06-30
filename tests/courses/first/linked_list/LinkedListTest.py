@@ -3,10 +3,18 @@ import sys
 
 sys.path.append('/var/www/courses')
 
+# noinspection PyPep8
 from courses.first.linked_list.LinkedList import Node, LinkedList
 
 
 class LinkedListTest(unittest.TestCase):
+    def test_delete_empty(self):
+        linked_list = LinkedList()
+
+        linked_list.delete(30)
+        self.assertIsNone(linked_list.head)
+        self.assertIsNone(linked_list.tail)
+
     def test_delete_one(self):
         n1 = Node(30)
         linked_list = LinkedList()

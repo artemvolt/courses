@@ -5,6 +5,7 @@ class Node:
         self.next = None
 
 
+# noinspection PyPep8Naming,PyShadowingBuiltins,PyComparisonWithNone
 class LinkedList:
 
     def __init__(self):
@@ -18,6 +19,7 @@ class LinkedList:
             self.tail.next = item
         self.tail = item
 
+    # noinspection PyPep8
     def print_all_nodes(self):
         node = self.head
         while node != None:
@@ -122,5 +124,3 @@ class LinkedList:
 
         newNode.next = afterNode.next
         afterNode.next = newNode
-
-

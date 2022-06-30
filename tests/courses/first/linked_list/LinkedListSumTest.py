@@ -3,6 +3,7 @@ import sys
 
 sys.path.append('/var/www/courses')
 
+# noinspection PyPep8
 from courses.first.linked_list.LinkedListSum import linked_list_sum
 from courses.first.linked_list.LinkedList import Node, LinkedList
 
