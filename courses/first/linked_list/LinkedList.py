@@ -86,7 +86,8 @@ class LinkedList:
                 head = head.next
 
     def clean(self):
-        pass  # здесь будет ваш код
+        self.head = None
+        self.tail = None
 
     def len(self):
         return 0  # здесь будет ваш код

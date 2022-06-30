@@ -115,4 +115,20 @@ class LinkedListTestDelete(unittest.TestCase):
         self.assertEqual(n5, linked_list.head.next)
         self.assertEqual(n5, linked_list.tail)
 
+    def test_clean(self):
+        n3 = Node(30)
+        n4 = Node(33)
+        n5 = Node(44)
+        n6 = Node(33)
+        linked_list = LinkedList()
+        linked_list.add_in_tail(n3)
+        linked_list.add_in_tail(n4)
+        linked_list.add_in_tail(n5)
+        linked_list.add_in_tail(n6)
+
+        linked_list.clean()
+
+        self.assertIsNone(linked_list.head)
+        self.assertIsNone(linked_list.tail)
+
 
