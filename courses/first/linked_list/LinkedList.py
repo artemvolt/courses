@@ -123,7 +123,4 @@ class LinkedList:
         newNode.next = afterNode.next
         afterNode.next = newNode
 
-        # foundNode = self.head
-        # while foundNode is not None:
-        #     if
 

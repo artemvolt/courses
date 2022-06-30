@@ -6,7 +6,7 @@ sys.path.append('/var/www/courses')
 from courses.first.linked_list.LinkedList import Node, LinkedList
 
 
-class LinkedListTestDelete(unittest.TestCase):
+class LinkedListTest(unittest.TestCase):
     def test_delete_one(self):
         n1 = Node(30)
         linked_list = LinkedList()
