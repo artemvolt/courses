@@ -180,5 +180,57 @@ class LinkedListTest(unittest.TestCase):
         self.assertEqual(n3, list.head.next)
         self.assertEqual(n3, list.tail)
 
+    def test_insert(self):
+        list = LinkedList2()
+        n1 = Node(50)
+        n2 = Node(40)
+        n3 = Node(30)
+        n4 = Node(20)
+        n5 = Node(10)
+        # n1
+        list.insert(None, n1)
+
+        self.assertEqual(n1, list.head)
+        self.assertIsNone(list.head.next)
+        self.assertEqual(n1, list.tail)
+        self.assertIsNone(list.tail.prev)
+
+        # n1 -> n2
+        list.insert(None, n2)
+        self.assertEqual(n1, list.head)
+        self.assertEqual(n1, list.head.next.prev)
+        self.assertEqual(n2, list.head.next)
+        self.assertEqual(n2, list.tail)
+
+        # n1 -> n3 -> n2
+        list.insert(n1, n3)
+        self.assertEqual(n1, list.head)
+        self.assertEqual(n3, list.head.next)
+        self.assertEqual(n2, n3.next)
+        self.assertEqual(n2, list.tail)
+
+        # n1 -> n3 -> n2 -> n4
+        list.insert(n2, n4)
+        self.assertEqual(n1, list.head)
+        self.assertEqual(n3, n1.next)
+        self.assertEqual(n1, n3.prev)
+        self.assertEqual(n2, n3.next)
+        self.assertEqual(n3, n2.prev)
+        self.assertEqual(n4, n2.next)
+        self.assertEqual(n2, n4.prev)
+        self.assertEqual(list.tail, n4)
+
+        # n1 -> n3 -> n5 -> n2 -> n4
+        list.insert(n3, n5)
+        self.assertEqual(n1, list.head)
+        self.assertEqual(n3, n1.next)
+        self.assertEqual(n1, n3.prev)
+        self.assertEqual(n5, n3.next)
+        self.assertEqual(n3, n5.prev)
+        self.assertEqual(n2, n5.next)
+        self.assertEqual(n5, n2.prev)
+        self.assertEqual(n4, n2.next)
+        self.assertEqual(n2, n4.prev)
+        self.assertEqual(list.tail, n4)
 
 
