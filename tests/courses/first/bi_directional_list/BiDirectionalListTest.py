@@ -22,3 +22,15 @@ class LinkedListTest(unittest.TestCase):
         self.assertIsNotNone(found)
         self.assertEqual(5, found.value)
 
+    def test_find_all(self):
+        list = LinkedList2()
+        list.add_in_tail(Node(5))
+        list.add_in_tail(Node(10))
+        list.add_in_tail(Node(3))
+        list.add_in_tail(Node(4))
+        list.add_in_tail(Node(5))
+
+        self.assertEqual(0, len(list.find_all(11)))
+        self.assertEqual(1, len(list.find_all(10)))
+        self.assertEqual(2, len(list.find_all(5)))
+
