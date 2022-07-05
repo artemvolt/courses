@@ -233,4 +233,21 @@ class LinkedListTest(unittest.TestCase):
         self.assertEqual(n2, n4.prev)
         self.assertEqual(list.tail, n4)
 
+    def test_add_in_head(self):
+
+        n1 = Node(10)
+        n2 = Node(20)
+        list = LinkedList2()
+        list.add_in_head(n1)
+        self.assertEqual(n1, list.head)
+        self.assertEqual(n1, list.tail)
+
+        # n2 -> n1
+        list.add_in_head(n2)
+        self.assertEqual(n2, list.head)
+        self.assertEqual(n1, n2.next)
+        self.assertEqual(n2, n1.prev)
+        self.assertIsNone(n1.next)
+        self.assertEqual(n1, list.tail)
+
 

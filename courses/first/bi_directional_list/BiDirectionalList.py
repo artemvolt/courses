@@ -126,4 +126,12 @@ class LinkedList2:
             node = node.next
 
     def add_in_head(self, newNode):
-        pass  # здесь будет ваш код
+        if self.head is None:
+            self.head = newNode
+            self.tail = newNode
+            return
+
+        head = self.head
+        newNode.next = head
+        head.prev = newNode
+        self.head = newNode
