@@ -259,3 +259,13 @@ class LinkedListTest(unittest.TestCase):
         self.assertIsNone(list.head)
         self.assertIsNone(list.tail)
 
+    def test_len(self):
+        list = LinkedList2()
+        self.assertEqual(0, list.len())
+        list.add_in_tail(Node(20))
+        self.assertEqual(1, list.len())
+        list.add_in_tail(Node(30))
+        self.assertEqual(2, list.len())
+        list.add_in_tail(Node(40))
+        self.assertEqual(3, list.len())
+

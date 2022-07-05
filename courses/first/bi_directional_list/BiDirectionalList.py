@@ -88,7 +88,12 @@ class LinkedList2:
         self.tail = None
 
     def len(self):
-        return 0  # здесь будет ваш код
+        node = self.head
+        count = 0
+        while node is not None:
+            count += 1
+            node = node.next
+        return count
 
     def insert(self, afterNode, newNode):
         if afterNode is None and self.head is None and self.tail is None:
