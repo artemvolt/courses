@@ -250,4 +250,12 @@ class LinkedListTest(unittest.TestCase):
         self.assertIsNone(n1.next)
         self.assertEqual(n1, list.tail)
 
+    def test_clean(self):
+        list = LinkedList2()
+        list.add_in_tail(Node(20))
+        list.add_in_tail(Node(30))
+        list.add_in_tail(Node(40))
+        list.clean()
+        self.assertIsNone(list.head)
+        self.assertIsNone(list.tail)
 
