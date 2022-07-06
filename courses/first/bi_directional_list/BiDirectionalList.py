@@ -76,6 +76,8 @@ class LinkedList2:
 
                 prev_node = node.prev
                 prev_node.next = node.next
+                if node.next is not None:
+                    node.next.prev = prev_node
                 node = node.next
 
                 if all is False:
