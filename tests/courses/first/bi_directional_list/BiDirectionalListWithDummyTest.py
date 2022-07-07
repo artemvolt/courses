@@ -1,12 +1,20 @@
 import unittest
 import sys
 
-from courses.first.bi_directional_list.BiDirectionalListWithDummy import LinkedList2WithDummy, Node
+from courses.first.bi_directional_list.BiDirectionalListWithDummy import LinkedList2WithDummy, Node, DummyNode
 
 sys.path.append('/var/www/courses')
 
 
 class LinkedListTest(unittest.TestCase):
+
+    def test_create(self):
+        real = Node(2)
+        self.assertEqual(2, real.value)
+        self.assertFalse(real.is_dummy)
+        dummy = DummyNode()
+        self.assertEqual(None, dummy.value)
+        self.assertTrue(dummy.is_dummy)
 
     def test_add_in_tail(self):
         list = LinkedList2WithDummy()

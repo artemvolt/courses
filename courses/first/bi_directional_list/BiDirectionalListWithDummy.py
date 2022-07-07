@@ -1,17 +1,19 @@
-class Node:
-    def __init__(self, v):
+class AbstractNode:
+    def __init__(self, is_dummy, v=None):
         self.value = v
         self.prev = None
         self.next = None
-        self.is_dummy = False
+        self.is_dummy = is_dummy
 
 
-class DummyNode:
+class Node(AbstractNode):
+    def __init__(self, v):
+        super().__init__(False, v)
+
+
+class DummyNode(AbstractNode):
     def __init__(self):
-        self.value = None
-        self.prev = None
-        self.next = None
-        self.is_dummy = True
+        super().__init__(True)
 
 
 # noinspection PyPep8Naming,PyPep8,PyMethodMayBeStatic,PyShadowingBuiltins,PyUnusedLocal
@@ -126,5 +128,3 @@ class LinkedList2WithDummy:
         newNode.prev = self.head
         newNode.next = next
         next.prev = newNode
-
-
