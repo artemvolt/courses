@@ -106,7 +106,7 @@ class LinkedList2WithDummy:
         return count
 
     def insert(self, afterNode, newNode):
-        if isinstance(newNode, DummyNode):
+        if isinstance(newNode, DummyNode) or isinstance(afterNode, DummyNode):
             raise TypeError("Invalid type of newNode")
 
         node = self.head.next

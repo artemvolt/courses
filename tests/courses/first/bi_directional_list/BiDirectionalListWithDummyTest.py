@@ -16,6 +16,13 @@ class LinkedListTest(unittest.TestCase):
         self.assertEqual(None, dummy.value)
         self.assertIsInstance(dummy, DummyNode)
 
+    def test_raise(self):
+        list = LinkedList2WithDummy()
+        self.assertRaises(TypeError, list.add_in_tail, DummyNode())
+        self.assertRaises(TypeError, list.add_in_head, DummyNode())
+        self.assertRaises(TypeError, list.insert, None, DummyNode())
+        self.assertRaises(TypeError, list.insert, DummyNode(), DummyNode())
+
     def test_add_in_tail(self):
         list = LinkedList2WithDummy()
         n1 = Node(20)
