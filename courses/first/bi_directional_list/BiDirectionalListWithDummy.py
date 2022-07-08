@@ -1,19 +1,18 @@
 class AbstractNode:
-    def __init__(self, is_dummy, v=None):
+    def __init__(self, v=None):
         self.value = v
         self.prev = None
         self.next = None
-        self.is_dummy = is_dummy
 
 
 class Node(AbstractNode):
     def __init__(self, v):
-        super().__init__(False, v)
+        super().__init__(v)
 
 
 class DummyNode(AbstractNode):
     def __init__(self):
-        super().__init__(True)
+        super().__init__()
 
 
 # noinspection PyPep8Naming,PyPep8,PyMethodMayBeStatic,PyShadowingBuiltins,PyUnusedLocal
@@ -25,6 +24,8 @@ class LinkedList2WithDummy:
         self.tail.prev = self.head
 
     def add_in_tail(self, item):
+        if isinstance(item, DummyNode):
+            raise TypeError("Invalid type of item")
         prev = self.tail.prev
         prev.next = item
         item.prev = prev
@@ -34,6 +35,10 @@ class LinkedList2WithDummy:
     def find(self, val):
         node = self.head.next
         while node is not None:
+            if isinstance(node, DummyNode):
+                node = node.next
+                continue
+
             if node.value == val:
                 return node
             node = node.next
@@ -42,6 +47,10 @@ class LinkedList2WithDummy:
         result = []
         node = self.head.next
         while node is not None:
+            if isinstance(node, DummyNode):
+                node = node.next
+                continue
+
             if node.value == val:
                 result.append(node)
             node = node.next
@@ -49,7 +58,7 @@ class LinkedList2WithDummy:
         return result
 
     def delete(self, val, all=False):
-        node = self.head
+        node = self.head.next
         head = self.head.next
         tail = self.tail.prev
         if head is None:
@@ -60,7 +69,7 @@ class LinkedList2WithDummy:
             return
 
         while node is not None:
-            if node.is_dummy:
+            if isinstance(node, DummyNode):
                 node = node.next
                 continue
 
@@ -83,25 +92,30 @@ class LinkedList2WithDummy:
         self.tail.prev = self.head
 
     def len(self):
-        node = self.head
+        node = self.head.next
         count = 0
         while node is not None:
+            if isinstance(node, DummyNode):
+                node = node.next
+                continue
+
             currentNode = node
-            if currentNode.is_dummy is False:
-                count += 1
             node = node.next
+            count += 1
 
         return count
 
     def insert(self, afterNode, newNode):
+        if isinstance(newNode, DummyNode):
+            raise TypeError("Invalid type of newNode")
 
-        node = self.head
+        node = self.head.next
         if afterNode is None:
             self.add_in_tail(newNode)
             return
 
         while node is not None:
-            if node.is_dummy:
+            if isinstance(node, DummyNode):
                 node = node.next
                 continue
 
@@ -116,6 +130,9 @@ class LinkedList2WithDummy:
             node = node.next
 
     def add_in_head(self, newNode):
+        if isinstance(newNode, DummyNode):
+            raise TypeError("Invalid type of item")
+
         if self.head.next is None:
             self.head.next = newNode
             self.tail.prev = newNode

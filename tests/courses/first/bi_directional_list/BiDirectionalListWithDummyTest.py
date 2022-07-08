@@ -11,10 +11,10 @@ class LinkedListTest(unittest.TestCase):
     def test_create(self):
         real = Node(2)
         self.assertEqual(2, real.value)
-        self.assertFalse(real.is_dummy)
+        self.assertIsInstance(real, Node)
         dummy = DummyNode()
         self.assertEqual(None, dummy.value)
-        self.assertTrue(dummy.is_dummy)
+        self.assertIsInstance(dummy, DummyNode)
 
     def test_add_in_tail(self):
         list = LinkedList2WithDummy()
