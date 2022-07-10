@@ -1,9 +1,6 @@
-import sys
 import unittest
 
 from courses.first.dynamic_arrays.DynArray import DynArray
-
-sys.path.append('/var/www/courses')
 
 
 class DynArrayTest(unittest.TestCase):
@@ -88,3 +85,7 @@ class DynArrayTest(unittest.TestCase):
         self.assertEqual(2, dyn[2])
         self.assertEqual(3, dyn[3])
         self.assertEqual(4, dyn[4])
+
+
+if __name__ == '__main__':
+    unittest.main()
