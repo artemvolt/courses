@@ -86,6 +86,63 @@ class DynArrayTest(unittest.TestCase):
         self.assertEqual(3, dyn[3])
         self.assertEqual(4, dyn[4])
 
+    # noinspection PyStatementEffect
+    def test_delete(self):
+
+        dyn = DynArray()
+        self.assertRaises(IndexError, dyn.delete, 1)
+
+        dyn.append(1)
+        dyn.delete(0)
+        self.assertEqual(0, len(dyn))
+        self.assertEqual(16, dyn.capacity)
+        self.assertEqual(0, dyn.count)
+        self.assertEqual(16, dyn.capacity)
+        with self.assertRaises(IndexError):
+            dyn[0]
+
+        dyn.append(1)
+        dyn.append(2)
+
+        # 2
+        dyn.delete(0)
+        self.assertEqual(1, len(dyn))
+        self.assertEqual(2, dyn[0])
+        self.assertEqual(16, dyn.capacity)
+
+        # 2, 1
+        dyn.append(1)
+
+        # 2
+        dyn.delete(1)
+        self.assertEqual(1, len(dyn))
+        self.assertEqual(2, dyn[0])
+        self.assertEqual(16, dyn.capacity)
+
+        # 2, 3, 4
+        dyn.append(3)
+        dyn.append(4)
+
+        # 2, 4
+        dyn.delete(1)
+        self.assertEqual(2, len(dyn))
+        self.assertEqual(2, dyn[0])
+        self.assertEqual(4, dyn[1])
+        self.assertEqual(16, dyn.capacity)
+
+    def test_delete_with_more_capacity_min(self):
+
+        dyn = DynArray()
+        for i in range(1, 18):
+            dyn.append(i)
+
+        self.assertEqual(32, dyn.capacity)
+        dyn.delete(0)
+        dyn.delete(1)
+
+        self.assertEqual(21, dyn.capacity)
+        self.assertEqual(15, dyn.count)
+
 
 if __name__ == '__main__':
     unittest.main()
