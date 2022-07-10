@@ -143,6 +143,15 @@ class DynArrayTest(unittest.TestCase):
         self.assertEqual(21, dyn.capacity)
         self.assertEqual(15, dyn.count)
 
+        dyn.delete(0)
+        dyn.delete(1)
+        dyn.delete(2)
+        dyn.delete(3)
+        dyn.delete(4)
+
+        self.assertEqual(16, dyn.capacity)
+        self.assertEqual(10, dyn.count)
+
 
 if __name__ == '__main__':
     unittest.main()

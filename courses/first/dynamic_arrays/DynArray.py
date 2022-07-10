@@ -78,5 +78,8 @@ class DynArray:
 
         if self.capacity > 16:
             if self.count < (self.capacity / 2):
-                self.resize(int(self.capacity / 1.5))
-
+                result_cap = int(self.capacity / 1.5)
+                if result_cap < 16:
+                    self.resize(16)
+                else:
+                    self.resize(result_cap)
