@@ -86,6 +86,11 @@ class DynArrayTest(unittest.TestCase):
         self.assertEqual(3, dyn[3])
         self.assertEqual(4, dyn[4])
 
+    def test_delete_empty(self):
+        dyn = DynArray()
+        with self.assertRaises(IndexError):
+            dyn.delete(0)
+
     # noinspection PyStatementEffect
     def test_delete(self):
 

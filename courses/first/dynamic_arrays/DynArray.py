@@ -71,6 +71,9 @@ class DynArray:
         if i < 0 or i > self.count:
             raise IndexError('Index is out of bounds')
 
+        if self.count == 0:
+            raise IndexError('You cannot delete in empty array')
+
         for k in range(i, self.count - 1):
             self.array[k] = self.array[k + 1]
 
