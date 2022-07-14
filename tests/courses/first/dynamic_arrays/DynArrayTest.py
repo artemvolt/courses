@@ -91,6 +91,12 @@ class DynArrayTest(unittest.TestCase):
         with self.assertRaises(IndexError):
             dyn.delete(0)
 
+    def test_delete_classic(self):
+        dyn = DynArray()
+        dyn.append(1)
+        self.assertEqual(1, len(dyn))
+        dyn.array.pop(0)
+
     # noinspection PyStatementEffect
     def test_delete(self):
 
