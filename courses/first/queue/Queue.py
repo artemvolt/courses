@@ -15,3 +15,12 @@ class Queue:
 
     def size(self):
         return len(self.stack)  # размер очереди
+
+    def rotate(self, count):
+        if self.size() == 0:
+            return
+
+        while count > 0:
+            self.enqueue(self.dequeue())
+            count -= 1
+
