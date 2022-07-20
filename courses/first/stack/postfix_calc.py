@@ -7,7 +7,7 @@ from courses.first.stack.Stack import Stack
 sys.path.append('/var/www/courses')
 
 
-def postfix_calc(input_raw: String) -> String:
+def postfix_calc(input_raw: String):
     if len(input_raw) == 0:
         raise AttributeError("Передана на вход пустая строка")
 
