@@ -4,9 +4,6 @@ from courses.first.stack.Stack import Stack
 
 
 def bracket_check(bracket: String):
-    if len(bracket) % 2 != 0:
-        return False
-
     stack = Stack()
 
     for item in bracket:
@@ -19,4 +16,4 @@ def bracket_check(bracket: String):
         else:
             stack.pop()
 
-    return True
+    return stack.size() == 0
