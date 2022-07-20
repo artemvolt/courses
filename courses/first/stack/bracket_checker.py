@@ -12,10 +12,11 @@ def bracket_check(bracket: String):
     for item in bracket:
         if item == '(':
             stack.push(item)
+            continue
+
+        if stack.size() == 0:
+            return False
         else:
-            if stack.size() == 0:
-                return False
-            else:
-                stack.pop()
+            stack.pop()
 
     return True
