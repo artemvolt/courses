@@ -13,7 +13,7 @@ def bracket_check(bracket: String):
 
         if stack.size() == 0:
             return False
-        else:
-            stack.pop()
+
+        stack.pop()
 
     return stack.size() == 0
