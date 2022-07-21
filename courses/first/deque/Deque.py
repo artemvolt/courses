@@ -3,7 +3,6 @@ class Deque:
     def __init__(self):
         # инициализация внутреннего хранилища
         self.stack = []
-        pass
 
     def addFront(self, item):
         # добавление в голову
