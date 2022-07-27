@@ -1,5 +1,7 @@
 import sys
 import unittest
+# noinspection PyUnresolvedReferences
+from unittest_data_provider import data_provider
 
 from courses.first.ordered_list.ordered_list import OrderedList, OrderedStringList
 
@@ -338,3 +340,38 @@ class ordered_list_test(unittest.TestCase):
         self.assertIsNone(list.head)
         self.assertIsNone(list.tail)
         self.assertEqual(0, list.len())
+
+    itemIds = lambda: (
+        ([], 1, []),
+        ([1], 1, []),
+        ([2], 1, [2]),
+        ([1, 2, 3], 1, [2, 3]),
+        ([1, 2, 3], 3, [1, 2]),
+        ([1, 2, 3], 2, [1, 3]),
+    )
+
+    @data_provider(itemIds)
+    def test_delete__ascending(self, income_list, item_for_delete, expected_list):
+        o_list_1 = OrderedList(True)
+        for i in income_list:
+            o_list_1.add(i)
+
+        o_list_1.delete(item_for_delete)
+        result_simple = []
+        for x in o_list_1.get_all():
+            result_simple.append(x.value)
+
+        self.assertEqual(result_simple, expected_list)
+
+    @data_provider(itemIds)
+    def test_delete_desc(self, income_list, item_for_delete, expected_list):
+        o_list_1 = OrderedList(False)
+        for i in reversed(income_list):
+            o_list_1.add(i)
+
+        o_list_1.delete(item_for_delete)
+        result_simple = []
+        for x in o_list_1.get_all():
+            result_simple.append(x.value)
+
+        self.assertEqual(result_simple, list(reversed(expected_list)))
