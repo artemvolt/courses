@@ -99,17 +99,18 @@ class OrderedList:
                     self.head = next
                     next.prev = None
                     node = node.next
-                    continue
+                    break
 
                 # tail
                 if next is None:
                     self.tail = prev
                     prev.next = None
                     node = node.next
-                    continue
+                    break
 
                 prev.next = next
                 next.prev = prev
+                break
 
             node = node.next
         # здесь будет ваш код

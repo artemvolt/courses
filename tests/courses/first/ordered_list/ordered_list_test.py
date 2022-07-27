@@ -200,6 +200,8 @@ class ordered_list_test(unittest.TestCase):
         self.assertEqual(n1, list.head)
         self.assertEqual(n2, n1.next)
         self.assertEqual(n2, list.tail)
+        self.assertIsNone(n2.next)
+        self.assertIsNone(n1.prev)
 
     def test_delete_from_tail(self):
         list = OrderedList(True)
@@ -234,6 +236,23 @@ class ordered_list_test(unittest.TestCase):
         self.assertEqual(n2, list.tail)
         self.assertIsNone(n2.next)
         self.assertIsNone(n1.prev)
+
+    def test_delete_step(self):
+        list = OrderedList(True)
+        list.add(1)
+        list.add(2)
+        list.add(3)
+        list.add(4)
+
+        self.assertEqual(1, list.head.value)
+        list.delete(1)
+        self.assertEqual(2, list.head.value)
+        list.delete(2)
+        self.assertEqual(3, list.head.value)
+        list.delete(3)
+        self.assertEqual(4, list.head.value)
+        list.delete(4)
+        self.assertIsNone(list.head)
 
     def test_delete_none_existing(self):
         list = OrderedList(True)
@@ -274,14 +293,15 @@ class ordered_list_test(unittest.TestCase):
         list.delete(2)
         n1 = list.head
         n2 = n1.next
+        n3 = n2.next
         self.assertEqual(1, n1.value)
-        self.assertEqual(4, n2.value)
+        self.assertEqual(2, n2.value)
+        self.assertEqual(4, n3.value)
         self.assertEqual(n2, n1.next)
         self.assertEqual(n1, n2.prev)
-        self.assertEqual(n1, list.head)
-        self.assertEqual(n2, list.tail)
-        self.assertEqual(n1, n2.prev)
-        self.assertIsNone(n2.next)
+        self.assertEqual(n3, n2.next)
+        self.assertEqual(n2, n3.prev)
+        self.assertIsNone(n3.next)
 
     def test_delete_sort(self):
         list = OrderedList(False)
@@ -308,3 +328,13 @@ class ordered_list_test(unittest.TestCase):
         n2 = n1.next
         self.assertEqual(3, n1.value)
         self.assertEqual(1, n2.value)
+
+    def test_clean_asc(self):
+        list = OrderedList(True)
+        list.add(1)
+        list.add(2)
+        list.add(3)
+        list.clean(True)
+        self.assertIsNone(list.head)
+        self.assertIsNone(list.tail)
+        self.assertEqual(0, list.len())
