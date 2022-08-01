@@ -21,6 +21,10 @@ class AssocArrayTest(unittest.TestCase):
         self.assertTrue('John' in assoc.values)
         index = assoc.slots.index('name')
         self.assertEqual('John', assoc.values[index])
+        assoc.put('name', 'John #1')
+        self.assertTrue('name' in assoc.slots)
+        self.assertFalse('John' in assoc.values)
+        self.assertTrue('John #1' in assoc.values)
 
     def test_collizion(self):
         assoc = NativeDictionary(17)
@@ -30,8 +34,14 @@ class AssocArrayTest(unittest.TestCase):
         self.assertTrue('cba' in assoc.slots)
         self.assertTrue('John #1' in assoc.values)
         self.assertTrue('John #2' in assoc.values)
-        self.assertTrue('John #1' in assoc.get('abc'))
-        self.assertTrue('John #2' in assoc.get('cba'))
+        self.assertEqual('John #1', assoc.get('abc'))
+        self.assertEqual('John #2', assoc.get('cba'))
+        assoc.put('cba', 'John #3')
+        self.assertTrue('John #1' in assoc.values)
+        self.assertFalse('John #2' in assoc.values)
+        self.assertTrue('John #3' in assoc.values)
+        self.assertTrue('John #3', assoc.get("cba"))
+        self.assertTrue('John #1', assoc.get("abc"))
 
     def test_is_key(self):
         assoc = NativeDictionary(17)
