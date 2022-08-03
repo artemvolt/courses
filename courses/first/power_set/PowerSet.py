@@ -50,10 +50,6 @@ class PowerSet:
         for el in self.values:
             if set2.get(el) is False:
                 set_new.put(el)
-
-        for el2 in set2.values:
-            if self.get(el2) is False:
-                set_new.put(el2)
         # разница текущего множества и set2
         return set_new
 

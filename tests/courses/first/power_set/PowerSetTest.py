@@ -117,7 +117,9 @@ class PowerSetTest(unittest.TestCase):
         set2.put(5)
         set2.put(6)
         set3 = set1.difference(set2)
-        self.assertEqual(5, set3.size())
+        self.assertEqual(2, set3.size())
+        self.assertTrue(set3.get(1))
+        self.assertTrue(set3.get(2))
 
     def test_intersection_difference_same(self):
         set1 = PowerSet()
