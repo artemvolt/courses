@@ -1,0 +1,35 @@
+hash - hash_key
+// 1. NativeDictionary->hash_fun. Назвал хеш, какой хеш? Хеш чего? Хеш ключа.
+
+index - hashed_key_for_index
+// 2. NativeDictionary->put. Индекс, какой индекс? По факту это хеш ключа для создания индекса.
+
+result - finding_nodes
+// 3. LinkedList2->find_all. Что за результат? Массив найденных элементов списка.
+
+count - count_nodes
+// 4. LinkedList2->len. Что за кол-во? Каких единиц? Количество элементов.
+
+current - current_node
+// 5. DynArray->insert.
+
+node - current_node_in_perform_list
+// 6. LinkedList2WithDummy->find. Текущая нода при обходе списка
+
+item - symbol_in_bracket
+// 7. bracket_check(). Символ из входной строки
+
+bigger - bigger_of_two_sets
+// 8. PowerSet->intersection. Наибольший по сравнению с кем? Из сравниваемых множеств.
+
+numbers_stack - finding_numbers_from_input_raw
+// 9. postfix_calc. Стек каких чисел? Из входной строки. Убираем название стек, потому то мы не отвечаем на вопрос "как это работает"
+
+first - first_number_from_input_raw
+// 10. postfix_calc. Что за первый? Первое число из найденных из входной строки
+
+result - math_result_to_two_numbers
+// 11. postfix_calc. Что за результат? Результат применение мат фукнции к двум числам.
+
+reverse_result - reverse_current_stack
+// 12. QueueStack->enqueue. Что за обратный результат? Результат чего? Перевернутый текущий стек.
