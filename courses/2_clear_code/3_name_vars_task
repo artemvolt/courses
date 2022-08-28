@@ -1,0 +1,60 @@
+6.1
+result -> finding_nodes
+// LinkedList2->find_all. Найденные узлы.
+
+set_new -> intersection_of_two_sets
+// PowerSet->intersection. Пересечение между двум множествами
+
+stack -> balanced_string
+// bracket_check. Сбалансированная строка
+
+hash -> input_hash
+// BloomFilter->calc_hash. Хеш входной строки
+
+index - index_for_new_value
+//NativeCache->put. Ключ для нового значения.
+
+6.2
+
+OrderStateMachine
+// Состояние заказа. Описывался бы из темы конечных автоматов?
+
+PartnerWidgetProxy
+// Использовал на работе, когда надо было добавить несуществующие методы виджета к модели.
+
+CreatePartnerJob
+// Использовал на работе. Название джобы для выполнения в очереди.
+
+CliTradingProcessManager
+// Использовал в пет-проекте для менеджера фоновых процессов торговли.
+
+6.3
+
+hash
+// BloomFilter->calc_hash . Функция считает итоговый хеш строки. Здесь контекст только расчета хеша.
+
+new_array
+// DynArray->resize. Результатом изменения размера должен стать новый массив.
+
+new_list
+// linked_list_sum. Результатом суммы двух список должен быть список.
+
+6.4
+
+deque -> deque_for_check_raw
+// check_palidrom
+
+new_list -> result_list_with_sum
+// linked_list_sum
+
+itm -> will_append_item
+// DynArray->append
+
+size -> size_new_array
+// DynArray->insert
+
+count - count_for_rotate
+// Queue->rotate
+
+
+
