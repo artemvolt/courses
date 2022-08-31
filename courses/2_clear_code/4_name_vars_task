@@ -1,0 +1,84 @@
+7.1.
+
+all - is_delete_all_finding
+// LinkedList2->delete.
+
+deleted -> isDeleted
+// была ли удалена запись
+
+main -> isMain
+// является ли главным партнером
+
+rememberMe -> isRememberMe
+// запомнить ли пользователя при авторизации
+
+startImmediately -> isStartImmediately
+// надо ли запускать проверку сразу
+
+7.2.
+
+$errors = [] -> $error
+// собирается массив ошибок и потом возвращается ответ - есть ли ошибки
+
+$errors = [] -> successFraudCheck
+// При фродовой проверке если массив ошибок был пуст, возвращался false либо true
+
+$model -> $found
+// В методе hasModel коллекции, в $model записывалась модель, хотя достаточно булев тип found
+
+7.3.
+
+foreach ($rows as $key => $row) -> foreach ($findingPartners as $partnerId => $partnerModel)
+// Выборка партнеров из бд
+
+foreach ($post as $key => $item) -> foreach ($postData as $formName => $formData)
+// Загрузка данных из post запроса в формы
+
+foreach ($item as $i => $column) -> foreach ($rowItem as $position => $cellData)
+// Обработка excel файла
+
+7.4.
+
+$begin = table()->begin()
+$end = table()->end()
+$begin ... $end
+// В Ui виджетах
+
+$first = Collection()->first();
+$last = Collection()->last();
+if $first....
+// первый элемент коллекции, последний
+
+$locked = TradingProcess->isLocked()
+// в пет-проекте биржевой торговли, проверяется заблокирован ли процесс торговли - ожидание проверок
+
+7.5.
+
+foreach ($validatorStatuses as $validatorStatus) {
+			$validatorId = (int)$validatorStatus['validator_id'];
+			if (!$validator = RewardsValidatorsReference::ValidatorModel($validatorId)) {
+				throw new Exception("Не получилось создать валидатор");
+			}
+			$countForCheck = RewardsRulesValidatorsStatuses::findAlreadyCheckByValidatorQuery(
+				$validatorId,
+				$validator->getMinCountDateForStart()
+			)->count();
+			if ($countForCheck > 0) {
+				$this->log("Success push job for validator {$validator->name}. Count checks: $countForCheck");
+				Yii::$app->queue_fraud->push(new AsyncRewardsRulesCollectionValidatorJob([
+					'validatorId' => $validatorId
+				]));
+			}
+		}
+
+// foreach ($validatorStatuses as $validatorStatus) -> foreach($validatorStatuses => $validatorStatusModelAsArray)
+// $validatorId впринципе не нужен, можно сразу сделать RewardsValidatorsReference::ValidatorModel( (int)$validatorStatus['validator_id'] )
+
+
+$time = DateTimeImmutable::createFromMutable(new DateTime());
+$timeWith60 = DateTimeImmutable::createFromMutable(new DateTime(date('Y-m-d H:i:s', time() + 60)));
+$timeWith3600 = DateTimeImmutable::createFromMutable(new DateTime(date('Y-m-d H:i:s', time() + 3600)));
+
+// $time -> $timeNow
+// $timeWith60 -> $timeAfter60seconds
+// $timeWith3600 -> $timeAfterOneHour
