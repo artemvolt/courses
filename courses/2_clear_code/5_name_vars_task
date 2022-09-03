@@ -1,0 +1,37 @@
+1. GrpcBaseModel -> BaseGrpcModelVersionTwo
+// В проекте есть два объекта для трансформации grpc объектов в базовые модели - BaseGrpcModel и его новая версия GrpcBaseModel.
+// Конечно, непонятно что из них использовать и они очень похожи по содержанию.
+// Наверно, только через версию можно дать понять что использовать
+
+2. SimpleBaseModel -> BaseModelForWorkWithGrpc
+// Базовая модель для grpc объектов. Simple ни о чем не говорит.
+
+3. STATUS_DONE_FAIL -> STATUS_DONE_WITH_FAIL_CHECK
+// Константа "Валидатор отработал, проверка неуспешна."
+
+4. PRECISE_SECONDS -> TIME_PRECISE_SECONDS
+// Константы точности времени. Из названия непонятно точность в секундах чего? Скорости? Времени?
+
+5. arr_low -> $lowPricesCandles
+// Минимальные цены свечей. Получаем массив исторических свечей (биржевая торговля) и складываем в этот массив их минимальную цену.
+
+6. from -> $periodCandlesFrom, $to -> $periodCandlesTo
+// С какого времени запрашивать историю по свечам (биржевая торговля).
+
+7. BookTickerList -> ReferenceTickers
+// Справочник тикеров (биржевая торговля).
+
+8. average -> averageCandlePrice
+// Средняя цена свечи.
+
+9. $varsModel -> StrategyParamsModel
+// Модель параметров стратегии торговли.
+
+10. files -> filesControllers
+// Массив файлов директории контроллеров.
+
+11. allOptionsRecords -> $siteOptions
+// Массив параметров сайта.
+
+12. numberControl -> maskNumberWidget
+// Виджет который вывод маску для ввода телефона.
