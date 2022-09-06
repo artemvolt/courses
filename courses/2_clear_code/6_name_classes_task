@@ -1,0 +1,39 @@
+3.1
+
+1. CheckPasswordOutdated -> OutdatedPassword
+// Bootstrap-файл приложения - проверяется не истек ли пароль.
+
+2. FakeJwtBearerAuth -> FakeJwtBearerAuthorization
+// Авторизация заглушка для локальной разработки
+
+3. MuteManager -> WebMuteException
+// Класс с функцией mute, которая вместо кидания exception, через трюкача кидает ошибки в сессию для вывода в интерфейсе.
+
+4. ValidateException -> ValidatedException
+// Ошибка валидации
+
+5. JwtTokenizer -> AuthedJwtToken
+// класс с методом getAuthToken. Получение jwt-токена для авторизации в системе.
+
+3.2
+
+1. Концепция Presenter. Класс для отображения данных во view со сменой состояние. Методы: render, changeState.
+До этого мы использовали базовые формы из yii2.
+
+2. Концепция справочников - References с методом getReference():array. Справочник всегда возвращает список строк справочника.
+Например, справочник типов коробок автомобиля: AuthTransmissionReference->getReference()
+
+3. EditProfileForm => EditableProfileForm
+// Форма редактирования профиля
+
+4. ClickBillingJournalSearch => BillingJournalSearch
+// Поиск по биллингу в бд clickhouse.
+
+5. ClickProductsJournalFormatter->chartFormat => ProductsJournalFormatter->toFormat
+// Приводит массив данных к требуемому формату. checkFormat возвращает массив, а не проверяет его.
+
+6. MobileIdTokenData->validate => MobileIdTokenValidator->validate
+// Валидация токена сервиса mobile id
+
+7. MobileIdTokenizer->getRequestToken => MobileIdToken->createMobileIdToken
+// Формируем token для запроса на аутентификацию.
