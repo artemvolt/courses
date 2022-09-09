@@ -1,0 +1,43 @@
+1. MuteManager.mute(callable $func) -> MuteException.mute(callable $func)
+// Класс, который возвращает null, если в пользовательской функции возникнет ошибка, и так же логирует ошибку
+
+2. ArrayHelper.except(array $arr, array|string $except):array -> ArrayHelper.getWithOutExceptKeys(array $arr, array|string $except):array
+// Нотация к функции: Получение елементов массива кроме $except. Тогда надо назвать "вернуть массив без указанных ключей".
+
+3. ArrayHelper.initValue -> ArrayHelper.addNoneExistingValue
+// Нотация к функции: Устанавливает значение в массиве только в том случае, если его ещё не существует.
+// Название метода не совсем отражает суть.
+
+4. ArrayHelper.array_find_deep -> ArrayHelper.findValuesBefore(toValue)
+// Нотация к функции: Ищет значение в многомерном массиве, если находит его, то возвращает массив со всеми ключами до этого элемента.
+
+5. ArrayHelper.array_unique -> ArrayHelper.removeDuplicates
+// Нотация к функции: Removes duplicate values from an array with multidimensional support.
+// Почему бы так и не назвать? array_unique, мне, кажется, добавляет неоднозначность.
+// array_unique - это функция предикат? Проверяет что массив уникальный? Или делает его уникальным.
+
+6. ArrayHelper.setLast -> ArrayHelper.setLastOrDeleteIfNotHaveValue
+// Нотация к функции: Устанавливает значение последней ячейке массива. Если параметр $value не установлен, удаляет последнюю ячейку массива.
+// Мне кажется, метод перегружен, он и устанавливает и удаляет, если нет значения.
+
+7. GrpcModifications::transformLocalObjectToGrpc(Message $grpcObject, mixed $model) ->
+GrpcModifications::transformLocalObjectToGrpc($model, Message $grpcObject)
+// Нотация к функции: Загружаем данные в grpc модель из локальной
+// Переставить аргументы местами, потому что из названия функции понятно направление.
+
+8. PartnerEmployees->schema() -> PartnerEmployee->typesAttributesForLoadInGrpcObject
+// Возвращает массив типов полей модели, к которым надо привести данные из модели при конвертации в grpc.
+// Из названии schema ничего не понятно, что за схема? Схема бд, но ведь это grpc?
+
+9. PartnerGrpcService->checkGrpcResponse => PartnerGrpcService->loadGrpcErrorsToLocalModel
+// Нотация к функции: Запихиваем ошибки из gRPC сервиса в локальную модель
+// checkGrpcResponse непонятно, что мы ожидаем. Наверно, либо true либо false?
+
+10. CsvHelper::csvToArray() -> CsvHelper::getDataFromFileToArray
+// Нотация к функции: Преобразование CSV строк в массив
+
+11. CsvHelper::arrayToCsv() -> CsvHelper::convertArrayToCsvData()
+// Нотация к функции: Преобразование массива в CSV
+
+12. CsvHelper::arrayToCsvFile() -> CsvHelper::saveDataToFile
+// Сохранение массива в файл
