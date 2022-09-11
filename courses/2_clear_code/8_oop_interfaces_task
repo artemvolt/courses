@@ -1,0 +1,45 @@
+3.1
+
+1. Например, недавно делал статические методы-конструктуры для модели пользователя:
+User::createAdmin // создание админа
+User::createMiniSeller // регистрация мини-продавца
+User::createSocial // регистрация через соц.сети
+
+2. Статические методы для создания результата ответа сервера:
+Response::createSuccess // успешный ответ, выставляется соответствующий статус
+Response::createValidateError // Ошибка валидации на стороне стороннего сервера
+Response::createThrowable // Иная ошибка
+
+3. Добавление в избранное. Можно добавить мейкап, косметику, событие. Статические методы для модели "Избранное".
+Favorites::createCosmetic
+Favorites::createMakeup
+Favorites::createEvent
+
+
+3.2
+1. У меня был интерфейс для получения коллекций из бд - UsersStore.
+Были следующие реализации:
+stores
+    - UsersStore
+    - db
+        UsersDbStore
+    - cache
+        UsersCacheStore
+    - memory
+        UsersMemoryStore // Хранение в обычном массиве
+
+2. Абстрактный класс Collection с базовыми методами для работы с коллекцией элементов.
+Примеры методов:
+    Collection
+        - first()
+        - last()
+        - sort()
+        ...
+Далее уже наследовался и создавал коллекции на примере:
+UsersCollection, CommentsCollection и т.д. со своими методами.
+
+3. Абстрактный класс Status.
+От него наследовались классы: Active, DeActive, Banned.
+
+
+
