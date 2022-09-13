@@ -1,0 +1,38 @@
+1. Html::YES => Html::USE_POPUP_AJAX_FORM, Html::NO => Html::DONT_USE_POPUP_AJAX_FORM
+// Html-хелпер с помогайками для приложения. На самом деле, эти константы используются для форм, открывать форму в модалке по ajax или нет.
+
+2. AdditionalAgreementsAR::SCENARIO_LOAD_FROM_POST = 'load_from_post'
+// Сценарий, когда форму загрузили через post. Форма так же используется на другой странице и так же загружается через POST.
+AdditionalAgreementsAR::SCENARIO_LOAD_FROM_POST => AdditionalAgreementsAR::EDIT_PARTNER
+// Сценарий, когда форма используется при редактировании партнера
+
+3. AgreementStatus::ACTIVE, AgreementStatus::STATUS_ACTIVE, AgreementStatus::STATUS_DELETE
+// Первая константа относится к статусу договора, вторая и третья - статус строки в бд.
+AgreementStatus::STATUS_ACTIVE => AgreementStatus::RAW_STATUS_ACTIVE, AgreementStatus::STATUS_DELETE => AgreementStatus::RAW_STATUS_DELETE
+
+4. Pagination::DEFAULT_PAGE_NUMBER, Pagination::DEFAULT_PAGE_SIZE
+// Константы пагинации. Сейчас по коду везде используются просто цифры, хотя они везде одинаковы.
+
+5.  GrpcConnect::SYSTEM => GrpcConnect::COMPONENT_NAME
+// Название компонента в конфигурации системы.
+
+6. LikeType::TYPE_POSITIVE => LikeType::POSITIVE
+// Из названия класса понятно, что речь идет про типы.
+
+7. DefaultController::PERMISSION => DefaultController::TYPE_PERMISSION
+// Тип создаваемого разрешения в контроллере модуля "Доступы".
+
+8. Permissions::CONTROLLER_DIRS => Permissions::CONTROLLER_DIR
+// Директория контроллеров.
+
+9. Permissions::CONFIGURATION_PERMISSIONS => Permissions::PARAM_CONFIGURATION_PERMISSIONS
+// Название параметра с преднастроенными правилами доступов.
+
+10. DefaultController::ACTION_TITLES => DefaultController::DEFAULT_ACTIONS
+// Дефолтные названия экшенов
+
+11. Options::OPTIONS_LABELS => Options::LABELS
+// Название к опциям.
+
+12. IntegratorController::INTERVAL => IntegratorController::CANDLES_INTERVAL_DATE_FROM
+// С какой даты запрашивать свечи на фондовой бирже.
