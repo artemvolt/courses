@@ -1,0 +1,143 @@
+1.  if (null !== $model->file && $model->validate())
+
+=>
+
+$hasFile = null !== $model->file;
+$isValidate = $model->validate()
+if ($hasFile && $isValidate)
+
+// Думаю, читается гораздо лучше при беглом чтении. Повысил читаемость условия.
+
+2.$file->isFile() && 'php' === $file->getExtension() && null !== $controller = self::LoadControllerClassFromFile($file->getRealPath(), $moduleId, $parentClassFilter)
+
+=>
+
+$isPhpExtension = 'php' === $file->getExtension();
+$isLoadControllerFromFile = null !== $controller = self::LoadControllerClassFromFile($file->getRealPath(), $moduleId, $parentClassFilter);
+if($file->isFile() && $isPhpExtension && $isLoadControllerFromFile)
+
+// Гораздо проще получается прочитать сам if. Повысил читаемость условия.
+
+3. if (Sellers::SELLER_FILL_PASSPORT_DATA !== $model->currentStatusId)
+
+=>
+
+$notFilledPassport = Sellers::SELLER_FILL_PASSPORT_DATA !== $model->currentStatusId;
+if ($notFilledPassport)
+
+// Кажется, я и правда начал понимать эту прелесть. Проще читать "построчно" программу :)
+// Лучше лишнюю строчку написать, но будет гораздо понятнее, что автор пытается проверить.
+// Повысил читаемость условия.
+
+4. (int)(($this->done / $this->count) * 100)
+
+=>
+
+if ($this->count <= 0) throw new InvalidArgumentException();
+$percent = ($this->done / $this->count) * 100;
+return (float) $percent;
+
+// Проверка деления на 0. Здесь идет неявное приведение float к int. Повысил читаемость условия.
+
+5. // Валидатор ОГРН. Повысил читаемость условия.
+if (!preg_match('/^\d{13}$/', $value)) {
+    $error = 'Для юридических лиц ОГРН должен содержать 13 цифр';
+} elseif ($value[12] !== substr((string)(fmod((float)substr($value, 0, -1), 11)), -1)) {
+    $error = 'ОГРН не прошел вычисление контрольных цифр';
+}
+
+=>
+
+$has13Numbers = preg_match('/^\d{13}$/', $value);
+$isCheckControlSum = value[12] !== substr((string)(fmod((float)substr($value, 0, -1), 11)), -1);
+if ( ! $has13Numbers) {
+    $error = 'Для юридических лиц ОГРН должен содержать 13 цифр';
+} elseif ($isCheckControlSum) {
+    $error = 'ОГРН не прошел вычисление контрольных цифр';
+}
+
+6. if ($moduleDb->_getConfig('populate') || $moduleDb->_getConfig('cleanup'))
+=>
+$isCleanDataBeforeSuite = $moduleDb->_getConfig('populate');
+$isCleanDataBeforeEachTest = $moduleDb->_getConfig('cleanup');
+if ($isCleanDataBeforeSuite && $isCleanDataBeforeEachTest)
+
+// Условие при запуске тестов - очищать ли таблицы от данных. Повысил читаемость условия.
+
+7. if (null === $this->modelClass || null === $model = $this->model::findOne($this->checkPrimaryKey(false))) return $title;
+
+=>
+
+$hasModelClass = null === $this->modelClass;
+$foundModel = null === $this->model::findOne($this->checkPrimaryKey(false));
+if ($hasModelClass || $foundModel) return $title
+
+// Инициализация title страницы. Повысил читаемость условия.
+
+8. if (false !== ($file = fopen('php://temp/maxmemory:'.(5 * 1024 * 1024), 'wb'))) {
+
+=>
+
+$isOpenFile = false !== ($file = fopen('php://temp/maxmemory:'.(5 * 1024 * 1024), 'wb'));
+if ($isOpenFile) {
+
+// Открытие файла. Повысил читаемость условия.
+
+9.
+if (strpos($contentType, 'charset=') === false) {
+     if (preg_match('/<meta[^>]+charset *= *["\']?([a-zA-Z\-0-9]+)/i', $body, $matches)) {
+          $contentType .= ';charset=' . $matches[1];
+     }
+    $headers['Content-Type'] = [$contentType];
+}
+
+=>
+
+$isContainCharsetStr = strpos($contentType, 'charset=') === false;
+$isCorrectCharsetValue = preg_match('/<meta[^>]+charset *= *["\']?([a-zA-Z\-0-9]+)/i', $body, $charsetValueMatch);
+if ($isContainCharsetStr) {
+    if ($isCorrectCharsetValue) {
+        $contentType .= ';charset=' . $charsetValueMatch[1];
+    }
+    $headers['Content-Type'] = [$contentType];
+}
+
+// Повысил читаемость условия.
+
+10. if ($result[0] === 'trade' && $result[1] === 'web' && $result['sum'] > 0)
+
+=>
+
+$isTradeEquipment = $result[0] === 'trade';
+$isConnectByWebForm = $result[1] === 'web';
+$isPositiveSum = $result['sum'] > 0;
+if ($isTradeEquipment && $isConnectByWebForm && $isPositiveSum) {}
+
+// Калькулятор тарифов, который рассчитываются через сайт. Повысил читаемость условия.
+
+11. if ($result['type'] === 1 && $partner = Partner::findOne(['id' => $result['partnerId']]) && $partner->holding_id === 3)
+
+=>
+
+$isCalculateTradeEquipment = 1;
+$foundPartner = Partner::findOne(['id' => $result['partnerId']]);
+$isRegionalDealer = $foundPartner && $partner->holding_id === 3;
+if ($isCalculateTradeEquipment && $isRegionalDealer) {
+
+// Условие в калькуляторе - если оборудование является торговым эквайрингом и партнер - региональный дилер. Повысил читаемость условия.
+
+12. if ($form->calculation_type = 'web'
+        && $calculation->relatedPartner?->relatedHolding?->type === 'dealer'
+        && new DateTime($calculation->relatedPartner?->last) < new DateTime('2021-01-01 00:00:00')
+    )
+
+=>
+
+$isOnSite = $form->calculation_type = 'web';
+$isDealer = $calculation->relatedPartner?->relatedHolding?->type === 'dealer';
+$isLastVisitAfter2021 = new DateTime($calculation->relatedPartner?->last) > new DateTime('2021-01-01 00:00:00');
+if ($isOnSite && $isDealer && $isLastVisitAfter2021)
+
+// Если считают тариф через сайт и партнер является дилером и последний визит был позже 2021 года. Повысил читаемость условия.
+
+
