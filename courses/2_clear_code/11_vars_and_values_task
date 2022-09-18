@@ -1,0 +1,74 @@
+1. // Включил инспекцию в phpStorm на неиспользуемые переменные. Он их стал подсвечивать :)
+// Удалил многие, например:
+1.1 [$firstPartner, $secondPartner] = $this->generatePartners(2);
+// Дальше работа была только с переменной $firstPartner.
+
+2 и 3. // "Инициализируйте каждую переменную, и делайте это правильно", "Завершение работы с переменными"
+// С инициализацией переменных примеров не нашел, потому что в основном в проектах все разнесено по маленьким функциях, которые выполняют какую-то одну операцию.
+// На прошлой работе был калькулятор тарифов, в котором было много таких примеров, но исходники, по понятным причинам, не остались.
+
+4. // Переменные и циклы
+// Почти во всех местах проектов, где использовались циклы foreach, for, например, в консольных командах, не убивались переменные:
+4.1 foreach ($batch as $key => $row) {
+       ...
+    }
+    unset($key, $row); // добавил unset
+
+// В остальных случаях, циклы использовались в рамках одной маленькой функции класса.
+
+4.2 for ($i = 1; $i <= 10; $i++) {
+        ...
+    }
+    unset($i); // добавил unset
+
+5. // Инварианты в коде.
+// Нашел классическую библиотеку для php - asserts. В функции добавил проверку аргументов.
+5.1 public function getById(int $id) {
+        Assert::greaterThan($id, 0, 'ID должен быть больше нуля');
+        ...
+
+5.2 public function findExistentUserNetwork(int $userId, string $socialName, string $socialId) {
+        Assert::greaterThan($userId, 0, 'ID пользователя должен быть больше нуля');
+        Assert::stringNotEmpty($socialName, 'Название соц сети не может быть пустым');
+        Assert::greaterThan($socialId, 0, 'ID соц сети должно быть положительным');
+        ..
+5.3 public function findExistentNetwork(string $socialName, string $socialId) {
+        Assert::stringNotEmpty($socialName, 'Название соц сети не может быть пустым);
+        Assert::greaterThan($socialId, 0, 'ID соц сети должно быть положительным');
+
+5.4 public function authInApi(string $login, string $pass) {
+        Assert::stringNotEmpty($login, 'Логин не может быть пустым');
+        Assert::stringNotEmpty($pass, 'Пароль не может быть пустым');
+
+5.5 public static function ExtractControllerId(string $className) {
+        Assert::stringNotEmpty($className, 'Название класса не может быть пустым');
+        Assert::contains($className, '\\', 'Возможно вы передели не namespace класса');
+
+5.6 public function actionAjaxSearch(string $term, string $column = 'name') {
+        Assert::stringNotEmpty($term, 'Поисковая фраза не может быть пустой');
+        Assert::minLength($term, 3, 'Минимальная длина поисковой фразы 3 символа);
+        Assert::oneOf($column, ['id', 'name', 'fullName'], 'Неизвестное название колонки');
+
+5.7 private function setSort($dataProvider):void {
+        Assert::isInstanceOf($dataProvider, ActiveDataProvider::class);
+    // Это переопределение базового класса фреймворка, который без типизации в аргументе.
+
+5.8 public function validateAuthKey($authKey):bool {
+        Assert::stringNotEmpty($authKey, 'Ключ авторизации не может быть пустым')
+
+5.9 public function recognize($recognitionType, array $file, array $query_params):array {
+        Assert::onOf($recognitionType, ['passport', 'drive_card'], 'Тип распознавания неизвестен');
+        Assert::allIsInstanceOf($file, File::class);
+5.10 public function save($runValidation = true, $attributeNames = null)
+        Assert::isBool($runValidation)
+        if (null !== $attributeNames) {
+            Assert::isArray($attributeNames)
+        }
+     // Это переопределение базового класса фреймворка, который без типизации в аргументе.
+
+5.11 protected function generateRandomToken(string $prefix) {
+        Assert::stringNotEmpty($prefix, 'Префикс для токена не может быть пустым')
+
+5.12 public function authenticationRequest(string $token) {
+        Assert::stringNotEmpty($prefix, 'Токен не может быть пустым')
+        Assert::length($token, 15, 'Длина токена должна составлять 15 символов')
