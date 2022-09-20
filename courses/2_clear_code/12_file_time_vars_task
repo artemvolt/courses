@@ -1,0 +1,200 @@
+1. // Коллекиця (массив).
+// В ответе api было много циклов, в которых не было unset переменных цикла, переместил в функцию коллекции
+```
+$result = [];
+foreach ($partners as $key => $partner) {
+   $partner['status'] = 1;
+   $partner['changed'] = date();
+   $result[$key] = $partner;
+}
+return ['partners' => $result]
+```
+=>
+```
+class Collection {
+    // ...
+    public function map(callable $func)
+    {
+        return array_map($func, $this->items);
+    }
+}
+
+$partnersCollection = new Collection($partners);
+return ['partners' => $partnersCollection->map(function ($partner) {
+    $partner['status'] = 1;
+})->toArray();
+```
+
+2. // Методы запросов в бд с обработкой вынес в отдельные методы:
+$userActivePartners = Partners::find()->where(['user_id' => $userId, 'status' => 'active'])->all();
+foreach($partners as $partner) {
+    ....
+}
+
+$userBannedPartners = Partners::find()->where(['user_id' => $userId, 'status' => 'ban'])->all();
+foreach($partners as $partner) {
+    ....
+}
+
+=>
+
+$userActivePartners = $partnersStore->activeUserPartners($userId);
+$userBannedPartners = $partnersStore->bannedUserPartners($userId);
+
+// Меньше вероятность искажения переменной
+
+3. // В методе расчета покупной цены акции использовался цикл для получения цен по свечам:
+foreach ($hist_candles as $key => $value) {
+   # code...
+   $open = $value->getOpen();
+   $close = $value->getClose();
+   $high = $value->getHigh();
+   $low = $value->getLow();
+   echo "open=" . $open . "\tclose=" . $close . "\thigh=" . $high . "\tlow=" . $low . "\n";
+
+   $arr_open[]  = $open  ;
+   $arr_close[] = $close ;
+   $arr_high[]  = $high  ;
+   $arr_low[]   = $low   ;
+}
+
+=>
+
+[$openPrices, $closePrices, $highPrices, $lowPrices] = $this->getHistoryCandles($hist_candles);
+
+// Вынес в отдельную функцию
+
+4. // Ниже был код получения средних значений из этих цен:
+$average_open = array_sum($arr_open)/count($arr_open);
+$average_close = array_sum($arr_close)/count($arr_close);
+$average_high = array_sum($arr_high)/count($arr_high);
+$average_low = array_sum($arr_low)/count($arr_low);
+
+=>
+
+[$openPrices, $closePrices, $highPrices, $lowPrices] = $this->getHistoryCandles($hist_candles);
+[$averageOpenPrice, $averageClosePrice, $averageHighPrice, $averageLowPrice] = $this->getAverageHistoryCandles($openPrices, $closePrices, $highPrices, $lowPrices);
+
+// Переменных стало меньше и уменьшилось их влияние.
+
+5. // Еще ниже был расчет:
+$chunked_arr_low = array_chunk($arr_low, 10);
+foreach ($chunked_arr_low as $k => $v) {
+   if (count($v) >= 10) {
+       $new_arr_low[] = array_sum($v)/count($v);
+   }
+}
+$average = min($new_arr_low);
+
+=>
+
+[$openPrices, $closePrices, $highPrices, $lowPrices] = $this->getHistoryCandles($hist_candles);
+[$averageOpenPrice, $averageClosePrice, $averageHighPrice, $averageLowPrice] = $this->getAverageHistoryCandles($openPrices, $closePrices, $highPrices, $lowPrices);
+$average = $this->calculateAverageLast10Candles($averageLowPrice);
+
+
+6. // В цикле использовался сложный расчет:
+if ( ($p_o1n_p1 > 0) && ($p_num>0) ) {
+   $av_price  = round( ($av_price*$curr_num+$p_num*$p_o1n_p1) / ($curr_num+$p_num) , 4 ) ;
+} elseif ($p_num>0) {
+   $av_price  = round( ($av_price*$curr_num+$p_num*$p_p1) / ($curr_num+$p_num) , 4 ) ;
+}
+
+=>
+
+$av_price = $this->calculateAverage($p_o1n_p1, $p_num, $av_price, $curr_num);
+// Стало меньше влияние на соседние расчеты
+
+7. // По всему проекту передавались переменные для ядра расчета 4 переменных. Используются порядка в 20 методах.
+$this->calculateTradeAcq($feeData, $sumProfit, $commissions, $costEquipmentsGroupByType)
+=>
+$options = new CalculationOptions($feeData, $sumProfit, $commissions, $costEquipmentsGroupByType);
+$this->calculateTradeAcq(CalculationOptions)
+....
+// Сами свойства приватные
+// Было много мест где они изменялись.
+
+8. // Переменная, которая передавалась в 100 строках метода контроллера:
+$partnerType = 1;
+
+=>
+
+$partnerType = new PartnerType(1);
+// У класса один метод getValue()
+
+9. // Переменная $cacheDuration передавалась так же во всех методах:
+$cacheDuration = 60 * 60;
+=>
+CacheStore::duration = 60 * 60
+// Заменил на статическую константу в класса кеша
+
+10. В некоторых местах использовалась способ получения первого элемента из массива:
+$first = array_shift($partners);
+=>
+$first = $partnersCollection->first();
+// Первый способ изменяет текущий массив, через коллекцию этого не происходит и никто не забудет об этом.
+
+11. // Переменная $rememberMe использовалась в нескольких местах программы:
+$rememberMe = 60
+=>
+User::time_for_remember = 60
+// Заменена на константу
+
+12. // Был участок кода по договорам, цикл, в котором рассматривалось три случая - существующий со связи, существующий без, не существующий.
+// Многие имена переменных пересекались.
+// Каждый цикл был вынесен в свой метод, код стал проще
+ foreach ($request->accounts as $newAccount) {
+    if (false === empty($newAccount->id)) {
+        .... // 15 строк
+    }
+    if (empty($newAccount->id)) {
+        ... // 20 строк
+    }
+ }
+=>
+foreach ($request->accounts as $newAccount) {
+    $this->existingScenario($newAccount);
+    $this->noneExistingScenario();
+ }
+
+13. // Оформление заказа:
+if ($orderState === 1) {
+    ...
+}
+if ($orderState === 2) {
+    ...
+}
+=>
+$orderState = new OrderState();
+if ($orderState->isActive()) {
+    ...
+}
+if ($orderState->isBanned()) {
+    ...
+}
+// Сетер отсутствует, из вне нельзя изменить переменную.
+
+14. // Профилирование:
+$time = 0;
+...
+$time += time() - $time;
+=>
+$time = new Profiling();
+$time->start()
+...
+$time->catch();
+...
+$time->catch();
+// Заменил на методы, чтобы кто-то в коде не изменил логику изменения переменной.
+
+15. // Использовалась переменная $isDev:
+$isDev = $this->params['env']['value'] === 'dev';
+if ($isDev) {
+    throw new Exception();
+}
+...
+=>
+if ($this->app->isDev()) {
+
+}
+// Чтобы не давать возможность ее случайно изменить.
