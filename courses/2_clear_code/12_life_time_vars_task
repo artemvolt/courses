@@ -1,0 +1,53 @@
+1. // Получение списка партнеров с использованием кеша.
+// На проекте использовался не совсем гибкий подход, во многих местах проекта был такой код:
+$partners = Yii::$app->cache->getOrSet(function () {
+    return Partners::find()->all();
+}, 60 * 60);
+
+// я его заменил на:
+
+class PartnersCacheStore {
+    public static $time = 60 * 60;
+
+    protected PartnersDbStore $store;
+    protected Redis $cache;
+
+    public function findPartners() {
+        return $this->redis->getOrSet(function () {
+            return $this->store->findPartners();
+        }, self::$time);
+    }
+}
+
+// Это позволило не менять всю программу и связывание выполняется в момент выполнения.
+// Обеспечивается достаточная скорость при большом кол-во обновлений страницы за счет использование кеша.
+
+2. // В коде использовались числа для статуса выполнения задач: 1 (done), 2 (fail), 3 (process)
+// Я заменил их на константы класса:
+class ExecutedStatus {
+    public const DONE = 1;
+    public const FAIL = 2;
+    public const PROCESS = 3;
+}
+
+$createdTask->status = ExecutionStatus::PROCESS;
+....
+$order->status = ExecutionStatus::DONE;
+....
+$I->assertEquals(ExecutionStatus::DONE, $createdTask->status);
+// Так же и в тестах использовались нативные значения.
+
+3. // В большом кол-ве view файлах использовались обработка сообщений из сессии, если появлялась ошибка, либо сообщение об успешном выполнении:
+<div class="alert">
+    <?php foreach ($successes as $success) { ?>
+        ...
+    <?php } ?>
+    <?php foreach ($errors as $error) { ?>
+        ...
+    <?php } ?>
+</div>
+// Перенес вызов этого блока в шаблон и сделал виджет:
+<?= SessionAlertsWidget::widget() ?>
+
+// Вызывается один раз в момент отрисовки страницы.
+
