@@ -1,0 +1,45 @@
+1. // Коллекции вместо массивов:
+$collection = new Collection([1,2,3,4]);
+$collection->first();
+            ->last();
+            ->contains(2);
+            ->map(function ($item) {
+                return $item * 3;
+            });
+            ->getItems();
+            ->sort('asc');
+            ->existKey(2);
+            ->existValue(3);
+// Защищает от возможных забытых обработок исключений;
+
+2. // Структура данных Стек - реализация стека.
+// Не нужно изобретать велосипед через массив:
+$stack = new Stack()
+$stack->push(1);
+      ->pop();
+
+3. // Класс ArrayIterator, более экономный способ по памяти при использовании массивов.
+$array = new ArrayIterator([1,2,3,4]);
+foreach ($array as $item) {
+    ...
+}
+// Минус, для итератора не доступна функция array_map.
+// Использовали при большом кол-ве элементов. Более 1000.
+
+4. // Для event manager мы использовали базовую структуру SplQueue (Очередь) вместо массива, в которой скапливались фоновые события приложения.
+// В конце жизни приложения мы их обрабатывали.
+Yii::$container->get(EventDispatcher::class)->event(new ClearPartnerCache(['tag' => 'partnersStore']));
+    // реализация
+    function event(EventInterface) {
+        $this->queue->push(EventInterface)
+    }
+
+
+5. // Обработку вложенных массивов мы делали через коллекции:
+$partners = new Collection(Partners::find()->with('holdings')->all());
+$partners->each(function (Partner $partner, $partnerKey) {
+    $partner->holdings->each(function (Holding $holding, $holdingKey) {
+        ....
+    });
+});
+// Позволяло проще работать с ключами, меньше ошибок было при копировании.
