@@ -1,0 +1,50 @@
+3.1
+
+1. public function actionCheckFromExcel(int $validatorId):void {
+// Проверка контрактов из excel-файла.
+
+2. public function actionAssignValidatorsOnBonus(string $validators, ?int $bonusType = null):void {
+// Привязать валидаторы проверок фрода к бонусам
+
+3. public function registerRewards():array {
+// Регистрация вознаграждений по контрактам
+
+4. public function getPossibleRewardRules():array {
+// Найти все правила вознаграждения, подходящее под это подключение
+
+5. private function getContractsRewardedCount():int {
+// Кол-во контрактов, которые получили вознаграждения
+
+6. private function getContractsUnrewardedCount():int {
+// Кол-во контрактов без наград
+
+7. private function getConnectionsSuspiciousCount():int {
+// Получить кол-во подозрительных заявок на подключение
+
+3.2
+
+1. public function saveDealer(array $modelsDealerContracts, array $idsToDelete = []):bool {
+// Сохраняет основную модель (Dealer) и связанную (DealerContract)
+=>
+public function saveDealerWithContract(array $modelsDealerContracts, array $idsToDelete = []):bool {
+
+2. Rewards::RegisterFromRule(RewardsRules $rule, ?IdentityInterface $user = null, ?Contracts $contractContext = null)
+// Генерирует для продажи список наград из правила, регистрируя их в журнале, и запуская валидации
+=>
+Rewards::createFromRuleAndStart(RewardsRules $rule, ?IdentityInterface $user = null, ?Contracts $contractContext = null)
+
+3. RewardsBonus::getCurrentRewardQuantity(int $reward_id):?float {
+// Сумма вознаграждения премии на текущий момент для вознаграждения $reward_id
+=>
+RewardsBonus::currentAmountForReward(int $reward_id):?float
+
+4. public function isValidationFinished():?bool {
+// Вернуть текущий статус выполнения проверок премии для начисления
+// true - выполнено, false - выполняется, null - неизвестно (это можно менять)
+=>
+public function getCurrentStatusRewardCheck():?bool {
+
+5. public function refreshStatus():int {
+// Пройдёмся по всем валидаторам этой премии, вычислив, выполнен ли шаг премии.
+=>
+public function calculateAndSetCurrentStatus():int {
