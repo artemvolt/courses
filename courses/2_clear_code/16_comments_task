@@ -1,0 +1,140 @@
+1. Добавил TODO комментарий.
+/**
+ * Настройки валидатора бонусов вознаграждений
+ *
+ * @TODO Необходимо реализовать кеширование методов
+ */
+class RewardsBonusesValidatorsOptions {
+
+2. Добавил TODO комментарий.
+/**
+ * Восстановление пароля на email
+ *
+ * @property null|string $email Адрес, на который гость пробует восстановить пароль
+ * @TODO: необходимо реализовать капчу
+ */
+class RestorePasswordForm extends Model {
+
+3. Усиление смысла.
+/**
+  * Добавляет переданный список номеров, возвращая id записей массивом.
+  * Номера приводятся к единому виду.
+  * @param array $phones
+  * @return array
+*/
+Phones::add(array $phones)
+
+4. Усиление.
+/**
+ * Валидатор, который всегда неуспешен
+*/
+class NeverDemoValidator {
+    /**
+     * Здесь мы используем структуру array interator вместо array для экономии памяти,
+     * потому что кол-во элементов ожидается очень большим.
+	 * @inheritDoc
+	 */
+	public function validateRewardsRulesStatusesCollection(ArrayIterator $collection):ArrayIterator {
+		// ...
+	}
+}
+
+5. Добавил предупреждение.
+
+class DatabaseMigrationExtension {
+
+    protected $excludeClearTables = [...];
+
+    /**
+     * Очищает все таблицы перед запуском тестов,
+     * кроме тех, которые добавлены в список исключения.
+     *
+	 * @return void
+	 * @throws ModuleRequireException
+	 */
+	public function beforeSuite(): void {
+	    // ...
+	}
+}
+
+6. Добавил предупреждение.
+
+class FraudController {
+   /**
+    * Внимание, команда работает по крону и создает
+    * задания в очередь, которые могут выполняться по несколько часов
+    * в связи с использование apache hadoop в системе проверок
+    */
+   public function actionCheckAlready():void {
+}
+
+7. Информативный комментарий.
+
+/**
+ * Фейковые класс jwt-авторизации.
+ * Подменяется в реализации интерфейса для тестировщиков после их авторизации,
+ * чтобы было проще тестировать функционал
+ */
+class FakeJwtBearerAuth implements UserAuth {
+
+8. Добавил прояснение.
+
+namespace app\components\console;
+
+/**
+ * Трейт для подсвечивания сообщений в терминале.
+ * class WithColorConsole
+ */
+trait WithColorConsole {
+
+9. Добавил TODO.
+
+class AreaService {
+    /**
+     * @TODO метод надо удалить, если больше не используется.
+     * Переходим на новый, который ниже - searchAreas.
+     * @deprecated
+     */
+    public function searchArea(ContextInterface $ctx, SearchRequest $in): SearchAreaResponse {
+      // ...
+    }
+}
+
+10. Добавил прояснение.
+
+/**
+ * Регистрация слушателей на событие сохранения партнера.
+ * События могут создавать не только из моделей, но и сторонними сервисами.
+ */
+class PartnersEventSaveBootstrap implements BootstrapInterface
+
+11. Добавил прояснение к методу
+
+class GrpcServicesHelper
+{
+    /**
+     * Существует ли класс grpc-сервиса из proto-схемы.
+     * Проверяем через сканирование директории.
+     *
+     * @param string $class
+     * @return bool
+     */
+    public static function isExistGrpcServiceClass(string $class): bool {
+       //...
+    }
+}
+
+12. Добавил @TODO, которая спарсится в выпадающий список (по @description), если не обновить описание.
+
+class AgreementsService {
+    /**
+     * @description @TODO Добавить более подробное описание к методу
+     *
+     * @param ContextInterface $ctx
+     * @param Agreement $in
+     * @return AgreementResponse
+     *
+     * @throws InvokeException|ReflectionException
+     */
+    public function updateOrCreate(ContextInterface $ctx, Agreement $in): AgreementResponse
+}
