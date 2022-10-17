@@ -1,11 +1,8 @@
 
 def sum_of_the_numbers_of_number(number: int) -> int:
     """Сумма чисел числа"""
-    to_string = str(number)
-    length_string = len(to_string)
-    if length_string == 1:
-        return number
+    reminder_of_dividing = number % 10
+    if reminder_of_dividing == 0:
+        return 0
 
-    first_number = int(to_string[:1])
-    others = int(to_string[1:])
-    return first_number + sum_of_the_numbers_of_number(others)
+    return reminder_of_dividing + sum_of_the_numbers_of_number(number // 10)
