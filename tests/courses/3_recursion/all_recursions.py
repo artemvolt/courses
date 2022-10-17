@@ -29,5 +29,5 @@ class AllRecursions(unittest.TestCase):
     def test_length_list(self):
         self.assertEqual(0, length_list([]))
         self.assertEqual(1, length_list([1]))
-        self.assertEqual(2, length_list([1,2]))
-        self.assertEqual(3, length_list([1,2,3]))
+        self.assertEqual(2, length_list([1, 2]))
+        self.assertEqual(3, length_list([1, 2, 3]))
