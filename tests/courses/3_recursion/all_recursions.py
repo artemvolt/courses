@@ -1,6 +1,8 @@
 import unittest
 import sys
 
+from courses.third_recursion.third_length_list import length_list
+
 sys.path.append('/var/www/courses')
 
 from courses.third_recursion.first_to_a_power import number_to_a_power
@@ -23,3 +25,9 @@ class AllRecursions(unittest.TestCase):
         self.assertEqual(6, sum_of_the_numbers_of_number(123))
         self.assertEqual(10, sum_of_the_numbers_of_number(1234))
         self.assertEqual(15, sum_of_the_numbers_of_number(12345))
+
+    def test_length_list(self):
+        self.assertEqual(0, length_list([]))
+        self.assertEqual(1, length_list([1]))
+        self.assertEqual(2, length_list([1,2]))
+        self.assertEqual(3, length_list([1,2,3]))
