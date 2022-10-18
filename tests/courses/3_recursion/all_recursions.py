@@ -1,5 +1,7 @@
 import unittest
 import sys
+import io
+from contextlib import redirect_stdout
 
 from courses.third_recursion.third_length_list import length_list
 
@@ -8,6 +10,7 @@ sys.path.append('/var/www/courses')
 from courses.third_recursion.first_to_a_power import number_to_a_power
 from courses.third_recursion.second_sum_nums_of_number import sum_of_the_numbers_of_number
 from courses.third_recursion.fourth_is_palindrome import is_palindrome
+from courses.third_recursion.fifth_even_numbers import print_even_numbers
 
 
 class AllRecursions(unittest.TestCase):
@@ -41,3 +44,11 @@ class AllRecursions(unittest.TestCase):
         self.assertTrue(is_palindrome("abssba"))
         self.assertTrue(is_palindrome("qweewq"))
         self.assertTrue(is_palindrome("helloolleh"))
+
+    def test_print_even_numbers(self):
+        f = io.StringIO()
+        with redirect_stdout(f):
+            print_even_numbers([1, 2, 3, 4])
+        out = f.getvalue()
+
+        self.assertEqual("2\n4\n", out)
