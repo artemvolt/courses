@@ -11,6 +11,8 @@ from courses.third_recursion.first_to_a_power import number_to_a_power
 from courses.third_recursion.second_sum_nums_of_number import sum_of_the_numbers_of_number
 from courses.third_recursion.fourth_is_palindrome import is_palindrome
 from courses.third_recursion.fifth_even_numbers import print_even_numbers
+from courses.third_recursion.six_length_list import print_with_even_index
+from courses.third_recursion.seven_find_second_max_number import find_second_max_number
 
 
 class AllRecursions(unittest.TestCase):
@@ -52,3 +54,17 @@ class AllRecursions(unittest.TestCase):
         out = f.getvalue()
 
         self.assertEqual("2\n4\n", out)
+
+    def test_print_with_even_index(self):
+        f = io.StringIO()
+        with redirect_stdout(f):
+            print_with_even_index([1, 213, 343, 453, 877])
+        out = f.getvalue()
+
+        self.assertEqual("1\n343\n877\n", out)
+
+    def test_find_second_max_number(self):
+        self.assertEqual(None, find_second_max_number([]))
+        self.assertEqual(1, find_second_max_number([1, 2]))
+        self.assertEqual(3, find_second_max_number([1, 2, 4, 4, 3]))
+        self.assertEqual(4, find_second_max_number([1, 2, 4, 4, 3, 5, 5]))
