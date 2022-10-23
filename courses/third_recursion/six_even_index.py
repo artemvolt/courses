@@ -7,7 +7,7 @@ def print_with_even_index(items: list):
     return print_even_index(items, 0)
 
 
-def print_even_index(items, index):
+def print_even_index(items: list, index: int):
     if index > (len(items) - 1):
         return
 
