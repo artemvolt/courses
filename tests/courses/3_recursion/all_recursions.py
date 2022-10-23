@@ -11,7 +11,7 @@ from courses.third_recursion.first_to_a_power import number_to_a_power
 from courses.third_recursion.second_sum_nums_of_number import sum_of_the_numbers_of_number
 from courses.third_recursion.fourth_is_palindrome import is_palindrome
 from courses.third_recursion.fifth_even_numbers import print_even_numbers
-from courses.third_recursion.six_length_list import print_with_even_index
+from courses.third_recursion.six_even_index import print_with_even_index
 from courses.third_recursion.seven_find_second_max_number import find_second_max_number
 
 
