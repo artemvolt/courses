@@ -73,11 +73,10 @@ class AllRecursions(unittest.TestCase):
 
     def test_find_files_in_directory(self):
         files = find_files_in_folders('tests/courses/3_recursion/find_files')
-        replaced = map(lambda abs_path: abs_path.replace('/var/www/tests/courses/3_recursion/', ''), files)
-        replaced_to_list = list(replaced)
-        self.assertEqual(5, len(replaced_to_list))
-        self.assertEqual('find_files/1.txt', replaced_to_list[0])
-        self.assertEqual('find_files/one/one_one/one_one_one/one_one_one.txt', replaced_to_list[1])
-        self.assertEqual('find_files/three/three.txt', replaced_to_list[2])
-        self.assertEqual('find_files/two/two.txt', replaced_to_list[3])
-        self.assertEqual('find_files/two/two_two/two_two.txt', replaced_to_list[4])
+        replaced = list(map(lambda abs_path: abs_path.replace('/var/www/tests/courses/3_recursion/', ''), files))
+        self.assertEqual(5, len(replaced))
+        self.assertEqual('find_files/1.txt', replaced[0])
+        self.assertEqual('find_files/one/one_one/one_one_one/one_one_one.txt', replaced[1])
+        self.assertEqual('find_files/three/three.txt', replaced[2])
+        self.assertEqual('find_files/two/two.txt', replaced[3])
+        self.assertEqual('find_files/two/two_two/two_two.txt', replaced[4])
