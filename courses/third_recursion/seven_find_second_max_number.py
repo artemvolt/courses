@@ -3,17 +3,17 @@ def find_second_max_number(items: list):
     if len(items) == 0:
         return None
 
-    current = items.pop(0)
+    current = items[0]
     first_max = second_max = current
 
-    return compare_current_with_max_and_second(items, first_max, second_max)
+    return compare_current_with_max_and_second(items[1:], first_max, second_max)
 
 
 def compare_current_with_max_and_second(items: list, first_max: int, second_max: int) -> int:
     if len(items) == 0:
         return second_max
 
-    current = items.pop(0)
+    current = items[0]
     if current > first_max:
         second_max = first_max
         first_max = current
@@ -21,4 +21,4 @@ def compare_current_with_max_and_second(items: list, first_max: int, second_max:
     if second_max < current < first_max:
         second_max = current
 
-    return compare_current_with_max_and_second(items, first_max, second_max)
+    return compare_current_with_max_and_second(items[1:], first_max, second_max)

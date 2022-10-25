@@ -1,9 +1,5 @@
 def print_with_even_index(items: list):
     """Печать элементов с четными индексами"""
-    length = len(items)
-    if length == 0:
-        return
-
     return print_even_index(items, 0)
 
 
