@@ -14,6 +14,10 @@ def compare_current_with_max_and_second(items: list, first_max: int, second_max:
         return second_max
 
     current = items[0]
+
+    if current == first_max:
+        second_max = current
+
     if current > first_max:
         second_max = first_max
         first_max = current
