@@ -1,12 +1,15 @@
 def find_second_max_number(items: list):
     """Поиск второго максимального числа"""
-    if len(items) == 0:
+    if len(items) <= 1:
         return None
 
-    current = items[0]
-    first_max = second_max = current
+    first_max = items[0]
+    second_max = items[1]
+    if first_max < second_max:
+        first_max = items[1]
+        second_max = items[0]
 
-    return compare_current_with_max_and_second(items[1:], first_max, second_max)
+    return compare_current_with_max_and_second(items[2:], first_max, second_max)
 
 
 def compare_current_with_max_and_second(items: list, first_max: int, second_max: int) -> int:

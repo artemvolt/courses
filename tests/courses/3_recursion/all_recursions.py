@@ -67,12 +67,14 @@ class AllRecursions(unittest.TestCase):
 
     def test_find_second_max_number(self):
         self.assertEqual(None, find_second_max_number([]))
+        self.assertEqual(None, find_second_max_number([1]))
         self.assertEqual(1, find_second_max_number([1, 2]))
         self.assertEqual(2, find_second_max_number([1, 2, 3]))
         self.assertEqual(4, find_second_max_number([1, 2, 4, 4, 3]))
         self.assertEqual(5, find_second_max_number([1, 2, 4, 4, 3, 5, 5]))
         self.assertEqual(5, find_second_max_number([1, 2, 4, 4, 3, 5, 5]))
         self.assertEqual(5, find_second_max_number([5, 4, 3, 2, 5]))
+        self.assertEqual(4, find_second_max_number([5, 4, 3, 2, 1]))
 
     def test_find_files_in_directory(self):
         files = find_files_in_folders('tests/courses/3_recursion/find_files')
