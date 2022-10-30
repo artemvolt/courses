@@ -1,6 +1,6 @@
 from tokenize import String
 
-from courses.first.stack.Stack import Stack
+from courses.first_algor_part_1.stack.Stack import Stack
 
 
 def bracket_check(bracket: String):
