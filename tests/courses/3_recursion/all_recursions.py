@@ -15,7 +15,7 @@ from courses.third_recursion.fifth_even_numbers import print_even_numbers
 from courses.third_recursion.six_even_index import print_with_even_index
 from courses.third_recursion.seven_find_second_max_number import find_second_max_number
 from courses.third_recursion.eight_files import find_files_in_folders
-from courses.third_recursion.nine_balance_parentheses import balance_parentheses
+from courses.third_recursion.nine_balance_parentheses import generate_balance_parentheses
 from courses.first_algor_part_1.stack.bracket_checker import bracket_check
 
 
@@ -90,7 +90,7 @@ class AllRecursions(unittest.TestCase):
 
     def test_balance_parentheses(self):
         for i in range(0, 1000):
-            bracket = balance_parentheses(3)
+            bracket = generate_balance_parentheses(3)
 
             self.assertTrue(
                 bracket_check(
@@ -99,7 +99,7 @@ class AllRecursions(unittest.TestCase):
             )
 
         for g in range(0, 1000):
-            bracket = balance_parentheses(4)
+            bracket = generate_balance_parentheses(4)
 
             self.assertTrue(
                 bracket_check(
@@ -108,7 +108,7 @@ class AllRecursions(unittest.TestCase):
             )
 
         for k in range(0, 100):
-            bracket = balance_parentheses(5)
+            bracket = generate_balance_parentheses(5)
 
             self.assertTrue(
                 bracket_check(
