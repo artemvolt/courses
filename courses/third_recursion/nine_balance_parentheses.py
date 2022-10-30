@@ -6,13 +6,19 @@ def balance_parentheses(count: int) -> str:
     if count < 1:
         raise ArithmeticError("Count must be positive")
 
-    list = ['(', ')']
-    for i in range(0, count):
-        random_position = random.choice(get_indexes(list))
-        list.insert(random_position, ')')
-        list.insert(random_position, '(')
+    return add_balance(count, '()')
 
-    return ''.join(map(lambda item: item, list))
+
+def add_balance(count: int, _input: str) -> str:
+    if len(_input) / 2 == count:
+        return _input
+
+    to_list = list(_input)
+    random_position = random.choice(get_indexes(to_list))
+    to_list.insert(random_position, ')')
+    to_list.insert(random_position, '(')
+
+    return add_balance(count, ''.join(map(lambda x: x, to_list)))
 
 
 def get_indexes(_input: list) -> list:
