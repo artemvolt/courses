@@ -13,7 +13,6 @@ def generate_balance_parentheses(count: int) -> str:
 def add_balance_parenthes(count: int, _input: str) -> str:
     length = len(_input)
     if length / 2 == count:
-        print(_input)
         return _input
 
     max_position = length - 1 if length > 1 else 0
