@@ -1,7 +1,7 @@
 import unittest
 import sys
 
-from courses.first.assoc_array.NativeDictionary import NativeDictionary
+from courses.first_algor_part_1.assoc_array.NativeDictionary import NativeDictionary
 
 sys.path.append('/var/www/courses')
 
