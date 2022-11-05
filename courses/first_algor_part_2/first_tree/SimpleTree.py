@@ -14,7 +14,6 @@ class SimpleTreeNode:
         return self.NodeValue == value
 
     def isEqualChildren(self, CompareValue):
-        #print('is equal children', len(self.Children) != len(CompareValue.Children))
         if len(self.Children) != len(CompareValue.Children):
             return False
 
