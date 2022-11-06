@@ -29,6 +29,7 @@ class SimpleTreeNode:
                self.Parent.NodeValue == CompareNode.Parent.NodeValue and \
                self.isEqualChildren(CompareNode)
 
+
 class SimpleTree:
     def __init__(self, root):
         self.Root = root  # корень, может быть None
@@ -92,7 +93,7 @@ class SimpleTree:
         return nodes
 
     def MoveNode(self, OriginalNode, NewParent):
-        # ваш код перемещения узла вместе с его поддеревом -- 
+        # ваш код перемещения узла вместе с его поддеревом --
         # в качестве дочернего для узла NewParent
         current_parent = OriginalNode.Parent
         parent_children = current_parent.Children
@@ -154,13 +155,13 @@ class SimpleTree:
         if self.Root is None:
             return
 
-        self.Print_Node(self.Root)
+        self.PrintNode(self.Root)
 
-    def Print_Node(self, Node):
+    def PrintNode(self, Node):
         print(" ==== ")
         print("node: ", Node.NodeValue)
         parent = Node.Parent
         if parent is not None:
             print('parent: ', parent.NodeValue)
         for children in Node.Children:
-            self.Print_Node(children)
+            self.PrintNode(children)
