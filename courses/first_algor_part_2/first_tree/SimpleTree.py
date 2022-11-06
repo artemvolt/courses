@@ -3,6 +3,7 @@ class SimpleTreeNode:
         self.NodeValue = val  # значение в узле
         self.Parent = parent  # родитель или None для корня
         self.Children = []  # список дочерних узлов
+        self.Level = 0
 
     def HasChildren(self):
         return len(self.Children) > 0
@@ -39,9 +40,11 @@ class SimpleTree:
         if ParentNode is None:
             NewChild.Parent = None
             self.Root = NewChild
+            self.CalcDepthLevelNode(NewChild)
         else:
             NewChild.Parent = ParentNode
             ParentNode.AddChildren(NewChild)
+            self.CalcDepthLevelNode(NewChild)
 
     def DeleteNode(self, NodeToDelete):
         # ваш код удаления существующего узла NodeToDelete
@@ -95,6 +98,12 @@ class SimpleTree:
     def MoveNode(self, OriginalNode, NewParent):
         # ваш код перемещения узла вместе с его поддеревом --
         # в качестве дочернего для узла NewParent
+        if NewParent is None:
+            self.Root = OriginalNode
+            OriginalNode.Parent = None
+            self.CalcDepthLevel()
+            return
+
         current_parent = OriginalNode.Parent
         parent_children = current_parent.Children
         for children in parent_children:
@@ -103,6 +112,7 @@ class SimpleTree:
 
         OriginalNode.Parent = NewParent
         NewParent.Children.append(OriginalNode)
+        self.CalcDepthLevelNode(OriginalNode)
 
     def Count(self):
         # количество всех узлов в дереве
@@ -165,3 +175,18 @@ class SimpleTree:
             print('parent: ', parent.NodeValue)
         for children in Node.Children:
             self.PrintNode(children)
+
+    def CalcDepthLevel(self):
+        root = self.Root
+        if root is not None:
+            self.CalcDepthLevelNode(root)
+
+    def CalcDepthLevelNode(self, node):
+        if node.Parent is None:
+            node.Level = 0
+        else:
+            node.Level = node.Parent.Level + 1
+
+        for child in node.Children:
+            self.CalcDepthLevelNode(child)
+
