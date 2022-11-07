@@ -189,4 +189,3 @@ class SimpleTree:
 
         for child in node.Children:
             self.CalcDepthLevelNode(child)
-
