@@ -173,17 +173,7 @@ class SimpleTree:
         calc count nodes of three
         :return: int
         """
-        if self.Root is None:
-            return 0
-
-        if self.Root.HasChildren() is False:
-            return 0
-
-        count = 1
-        for child in self.Root.Children:
-            count += self.Count_Node(child)
-
-        return count
+        return self.Count_Node(self.Root)
 
     def Count_Node(self, Node: SimpleTreeNode) -> int:
         """
@@ -192,8 +182,8 @@ class SimpleTree:
         :return: int
         """
         count = 0
-        if Node.HasChildren() is True:
-            count = 1
+        if Node is not None:
+            count += 1
             for child in Node.Children:
                 count += self.Count_Node(child)
 

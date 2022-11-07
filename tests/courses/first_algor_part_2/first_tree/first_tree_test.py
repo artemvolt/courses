@@ -66,7 +66,7 @@ class SimpleTreeTest(unittest.TestCase):
         main_node = SimpleTreeNode(999, None)
         # [ 999 ]
         tree.AddChild(None, main_node)
-        self.assertEqual(0, tree.Count())
+        self.assertEqual(1, tree.Count())
         self.assertEqual(1, tree.LeafCount())
         root_node_one = SimpleTreeNode(1, None)
         parent_root_node_one = SimpleTreeNode(3, None)
@@ -75,11 +75,11 @@ class SimpleTreeTest(unittest.TestCase):
         parent_root_node_two_child = SimpleTreeNode(10, None)
         # 999 => [1]
         tree.AddChild(main_node, root_node_one)
-        self.assertEqual(1, tree.Count())
+        self.assertEqual(2, tree.Count())
         self.assertEqual(1, tree.LeafCount())
         # 999 => [1, 2]
         tree.AddChild(main_node, root_node_two)
-        self.assertEqual(1, tree.Count())
+        self.assertEqual(3, tree.Count())
         self.assertEqual(2, tree.LeafCount())
         # 999 => [
         #   1 => [3],
@@ -87,14 +87,14 @@ class SimpleTreeTest(unittest.TestCase):
         # ]
         #
         tree.AddChild(root_node_one, parent_root_node_one)
-        self.assertEqual(2, tree.Count())
+        self.assertEqual(4, tree.Count())
         self.assertEqual(2, tree.LeafCount())
         # 999 => [
         #   1 => [3],
         #   2 => [4]
         # ]
         tree.AddChild(root_node_two, parent_root_node_two)
-        self.assertEqual(3, tree.Count())
+        self.assertEqual(5, tree.Count())
         self.assertEqual(2, tree.LeafCount())
         root_node_three = SimpleTreeNode(5, None)
         tree.AddChild(main_node, root_node_three)
@@ -103,7 +103,7 @@ class SimpleTreeTest(unittest.TestCase):
         #   2 => [4],
         #   5
         # ]
-        self.assertEqual(3, tree.Count())
+        self.assertEqual(6, tree.Count())
         self.assertEqual(3, tree.LeafCount())
         tree.AddChild(parent_root_node_two, parent_root_node_two_child)
         # 999 => [
@@ -111,7 +111,7 @@ class SimpleTreeTest(unittest.TestCase):
         #   2 => [4 => [10]],
         #   5
         # ]
-        self.assertEqual(4, tree.Count())
+        self.assertEqual(7, tree.Count())
         self.assertEqual(3, tree.LeafCount())
 
     def test_delete_node(self):
