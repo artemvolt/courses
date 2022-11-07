@@ -1,9 +1,9 @@
 # noinspection PyPep8Naming
 class SimpleTreeNode:
     def __init__(self, val, parent):
-        self.NodeValue = val  # значение в узле
-        self.Parent = parent  # родитель или None для корня
-        self.Children = []  # список дочерних узлов
+        self.NodeValue = val
+        self.Parent = parent
+        self.Children = []
         self.Level = 0
 
     def HasChildren(self) -> bool:
@@ -58,7 +58,7 @@ class SimpleTreeNode:
 # noinspection PyPep8Naming
 class SimpleTree:
     def __init__(self, root):
-        self.Root = root  # корень, может быть None
+        self.Root = root
 
     def AddChild(self, ParentNode: SimpleTreeNode, NewChild: SimpleTreeNode):
         """
@@ -66,7 +66,6 @@ class SimpleTree:
         :param ParentNode: SimpleTreeNode|None
         :param NewChild: SimpleTreeNode
         """
-        # ваш код добавления нового дочернего узла существующему ParentNode
         if ParentNode is None:
             NewChild.Parent = None
             self.Root = NewChild
@@ -81,7 +80,6 @@ class SimpleTree:
         delete node in three
         :param NodeToDelete: SimpleTreeNode
         """
-        # ваш код удаления существующего узла NodeToDelete
         all_nodes = self.GetAllNodes()
         for node in all_nodes:
             if node.isEqual(NodeToDelete):
@@ -99,7 +97,6 @@ class SimpleTree:
         get all nodes in three
         :return: list
         """
-        # ваш код выдачи всех узлов дерева в определённом порядке
         if self.Root is None:
             return []
 
@@ -126,7 +123,6 @@ class SimpleTree:
         :param val:
         :return: list
         """
-        # ваш код поиска узлов по значению
         if self.Root is None:
             return []
 
@@ -156,8 +152,6 @@ class SimpleTree:
         :param NewParent: SimpleTreeNode
         :return:
         """
-        # ваш код перемещения узла вместе с его поддеревом --
-        # в качестве дочернего для узла NewParent
         if NewParent is None:
             self.Root = OriginalNode
             OriginalNode.Parent = None
@@ -179,7 +173,6 @@ class SimpleTree:
         calc count nodes of three
         :return: int
         """
-        # количество всех узлов в дереве
         if self.Root is None:
             return 0
 
@@ -211,7 +204,6 @@ class SimpleTree:
         calc count for all leafs in tree
         :return: int
         """
-        # количество листьев в дереве
         if self.Root is None:
             return 0
 
