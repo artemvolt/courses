@@ -9,7 +9,7 @@ class SimpleTreeNode:
     def HasChildren(self) -> bool:
         """
         does have current node children
-        :return:
+        :return: bool
         """
         return len(self.Children) > 0
 
@@ -31,8 +31,8 @@ class SimpleTreeNode:
     def isEqualChildren(self, CompareValue: 'SimpleTreeNode') -> bool:
         """
         Check equal by children
-        :param CompareValue:
-        :return:
+        :param CompareValue: SimpleTreeNode
+        :return: bool
         """
         if len(self.Children) != len(CompareValue.Children):
             return False
@@ -47,8 +47,8 @@ class SimpleTreeNode:
     def isEqual(self, CompareNode: 'SimpleTreeNode') -> bool:
         """
         Check equal by value and children
-        :param CompareNode:
-        :return:
+        :param CompareNode: SimpleTreeNode
+        :return: bool
         """
         return self.isEqualValue(CompareNode.NodeValue) and \
                self.Parent.NodeValue == CompareNode.Parent.NodeValue and \
@@ -63,8 +63,8 @@ class SimpleTree:
     def AddChild(self, ParentNode: SimpleTreeNode, NewChild: SimpleTreeNode):
         """
         add child to parent. If Parent is none, it's mean new child will be root node.
-        :param ParentNode:
-        :param NewChild:
+        :param ParentNode: SimpleTreeNode|None
+        :param NewChild: SimpleTreeNode
         """
         # ваш код добавления нового дочернего узла существующему ParentNode
         if ParentNode is None:
@@ -79,7 +79,7 @@ class SimpleTree:
     def DeleteNode(self, NodeToDelete: SimpleTreeNode):
         """
         delete node in three
-        :param NodeToDelete:
+        :param NodeToDelete: SimpleTreeNode
         """
         # ваш код удаления существующего узла NodeToDelete
         all_nodes = self.GetAllNodes()
@@ -94,10 +94,10 @@ class SimpleTree:
                     if children_parent.isEqual(node):
                         parent.Children.remove(children_parent)
 
-    def GetAllNodes(self):
+    def GetAllNodes(self) -> list:
         """
         get all nodes in three
-        :return:
+        :return: list
         """
         # ваш код выдачи всех узлов дерева в определённом порядке
         if self.Root is None:
@@ -105,11 +105,11 @@ class SimpleTree:
 
         return self.GetAllNodesInNode(self.Root)
 
-    def GetAllNodesInNode(self, Node: SimpleTreeNode) -> int:
+    def GetAllNodesInNode(self, Node: SimpleTreeNode) -> list:
         """
         get all nodes in node recursive
-        :param Node:
-        :return:
+        :param Node: SimpleTreeNode
+        :return: list
         """
         nodes = []
         if Node.HasChildren():
@@ -124,7 +124,7 @@ class SimpleTree:
         """
         find all nodes by value in three
         :param val:
-        :return:
+        :return: list
         """
         # ваш код поиска узлов по значению
         if self.Root is None:
@@ -136,8 +136,8 @@ class SimpleTree:
         """
         Find all nodes by value recursive
         :param val:
-        :param Node:
-        :return:
+        :param Node: SimpleTreeNode
+        :return: list
         """
         nodes = []
         if Node.HasChildren():
@@ -152,8 +152,8 @@ class SimpleTree:
     def MoveNode(self, OriginalNode: SimpleTreeNode, NewParent: SimpleTreeNode):
         """
         move original node to new parent
-        :param OriginalNode:
-        :param NewParent:
+        :param OriginalNode: SimpleTreeNode
+        :param NewParent: SimpleTreeNode
         :return:
         """
         # ваш код перемещения узла вместе с его поддеревом --
@@ -177,7 +177,7 @@ class SimpleTree:
     def Count(self) -> int:
         """
         calc count nodes of three
-        :return:
+        :return: int
         """
         # количество всех узлов в дереве
         if self.Root is None:
@@ -195,8 +195,8 @@ class SimpleTree:
     def Count_Node(self, Node: SimpleTreeNode) -> int:
         """
         calc count node recursive
-        :param Node:
-        :return:
+        :param Node: SimpleTreeNode
+        :return: int
         """
         count = 0
         if Node.HasChildren() is True:
@@ -209,7 +209,7 @@ class SimpleTree:
     def LeafCount(self) -> int:
         """
         calc count for all leafs in tree
-        :return:
+        :return: int
         """
         # количество листьев в дереве
         if self.Root is None:
@@ -227,8 +227,8 @@ class SimpleTree:
     def LeafCountNode(self, Node: SimpleTreeNode) -> int:
         """
         Calc count for leaf recursive
-        :param Node:
-        :return:
+        :param Node: SimpleTreeNode
+        :return: int
         """
         count = 0
         if Node.HasChildren() is True:
@@ -252,7 +252,7 @@ class SimpleTree:
     def PrintNode(self, Node: SimpleTreeNode):
         """
         print each node with children recursive
-        :param Node:
+        :param Node: SimpleTreeNode
         """
         print(" ==== ")
         print("node: ", Node.NodeValue)
@@ -273,7 +273,7 @@ class SimpleTree:
     def CalcDepthLevelNode(self, node: SimpleTreeNode):
         """
         set level for each node recursive
-        :param node:
+        :param node: SimpleTreeNode
         """
         if node.Parent is None:
             node.Level = 0
