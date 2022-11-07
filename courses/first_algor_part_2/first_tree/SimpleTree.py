@@ -80,17 +80,8 @@ class SimpleTree:
         delete node in three
         :param NodeToDelete: SimpleTreeNode
         """
-        all_nodes = self.GetAllNodes()
-        for node in all_nodes:
-            if node.isEqual(NodeToDelete):
-                children = NodeToDelete.Children
-                parent = node.Parent
-                for child in children:
-                    children.remove(child)
-
-                for children_parent in parent.Children:
-                    if children_parent.isEqual(node):
-                        parent.Children.remove(children_parent)
+        NodeToDelete.Parent.Children.remove(NodeToDelete)
+        NodeToDelete.Parent = None
 
     def GetAllNodes(self) -> list:
         """
@@ -108,12 +99,10 @@ class SimpleTree:
         :param Node: SimpleTreeNode
         :return: list
         """
-        nodes = []
-        if Node.HasChildren():
-            nodes.append(Node)
+        nodes = [Node]
 
-            for children in Node.Children:
-                nodes = nodes + self.GetAllNodesInNode(children)
+        for children in Node.Children:
+            nodes = nodes + self.GetAllNodesInNode(children)
 
         return nodes
 
@@ -136,12 +125,11 @@ class SimpleTree:
         :return: list
         """
         nodes = []
-        if Node.HasChildren():
-            if Node.isEqualValue(val):
-                nodes.append(Node)
+        if Node.isEqualValue(val):
+            nodes.append(Node)
 
-            for children in Node.Children:
-                nodes = nodes + self.FindNodesByValueInNode(val, children)
+        for children in Node.Children:
+            nodes = nodes + self.FindNodesByValueInNode(val, children)
 
         return nodes
 
@@ -158,14 +146,9 @@ class SimpleTree:
             self.CalcDepthLevel()
             return
 
-        current_parent = OriginalNode.Parent
-        parent_children = current_parent.Children
-        for children in parent_children:
-            if children.isEqualValue(OriginalNode.NodeValue):
-                parent_children.remove(children)
-
-        OriginalNode.Parent = NewParent
+        OriginalNode.Parent.Children.remove(OriginalNode)
         NewParent.Children.append(OriginalNode)
+        OriginalNode.Parent = NewParent
         self.CalcDepthLevelNode(OriginalNode)
 
     def Count(self) -> int:

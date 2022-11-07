@@ -199,11 +199,16 @@ class SimpleTreeTest(unittest.TestCase):
         tree.AddChild(parent_root_node_two, parent_root_node_two_two)
 
         nodes = tree.GetAllNodes()
-        self.assertEqual(4, len(nodes))
+
+        self.assertEqual(8, len(nodes))
         self.assertEqual(999, nodes[0].NodeValue)
-        self.assertEqual(1, nodes[1].NodeValue)
-        self.assertEqual(2, nodes[2].NodeValue)
-        self.assertEqual(4, nodes[3].NodeValue)
+        self.assertEqual(5, nodes[1].NodeValue)
+        self.assertEqual(1, nodes[2].NodeValue)
+        self.assertEqual(3, nodes[3].NodeValue)
+        self.assertEqual(2, nodes[4].NodeValue)
+        self.assertEqual(4, nodes[5].NodeValue)
+        self.assertEqual(7, nodes[6].NodeValue)
+        self.assertEqual(8, nodes[7].NodeValue)
 
     def test_find_nodes_by_value(self):
         tree = SimpleTree(None)
@@ -234,16 +239,20 @@ class SimpleTreeTest(unittest.TestCase):
         tree.AddChild(parent_root_node_two, parent_root_node_two_two)
 
         nodes = tree.FindNodesByValue(2)
-        self.assertEqual(2, len(nodes))
-        self.assertEqual(2, nodes[0].NodeValue)
-        children_first = nodes[0].Children
-        self.assertEqual(1, len(children_first))
-        self.assertEqual(2, children_first[0].NodeValue)
+        self.assertEqual(3, len(nodes))
+        [first, second, third] = nodes
+        self.assertEqual(2, first.NodeValue)
+        self.assertEqual(2, second.NodeValue)
+        self.assertEqual(2, third.NodeValue)
 
-        children_second = nodes[1].Children
-        self.assertEqual(2, len(children_second))
-        self.assertEqual(7, children_second[0].NodeValue)
-        self.assertEqual(2, children_second[1].NodeValue)
+        self.assertEqual(1, len(first.Children))
+        self.assertEqual(2, first.Children[0].NodeValue)
+
+        self.assertEqual(2, len(second.Children))
+        self.assertEqual(7, second.Children[0].NodeValue)
+        self.assertEqual(2, second.Children[1].NodeValue)
+
+        self.assertEqual(0, len(third.Children))
 
     def test_move_node(self):
         tree = SimpleTree(None)
