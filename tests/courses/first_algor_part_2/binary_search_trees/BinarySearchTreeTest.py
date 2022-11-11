@@ -170,6 +170,9 @@ class BinarySearchTreeTest(unittest.TestCase):
         self.assertEqual(7, tree.Count())
 
     def test_delete(self):
+        tree = BST(None)
+        self.assertFalse(tree.DeleteNodeByKey(0))
+
         [tree, first, fourth, twelve, two, six, ten, fourtheen] = self.create_tree()
         self.assertTrue(tree.FindNodeByKey(10).NodeHasKey)
         tree.DeleteNodeByKey(10)
@@ -186,4 +189,11 @@ class BinarySearchTreeTest(unittest.TestCase):
         self.assertEqual(first, tree.Root)
         self.assertEqual(six, first.LeftChild)
         self.assertEqual(twelve, first.RightChild)
+
+    def test_delete_root(self):
+        tree = BST(BSTNode(1, 1, None))
+        self.assertTrue(tree.FindNodeByKey(1).NodeHasKey)
+        self.assertTrue(tree.DeleteNodeByKey(1))
+        self.assertFalse(tree.FindNodeByKey(1).NodeHasKey)
+        self.assertTrue(tree.Root is None)
 

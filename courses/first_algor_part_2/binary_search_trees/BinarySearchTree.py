@@ -78,9 +78,12 @@ class BST:
     def DeleteNodeByKey(self, key):
         # удаляем узел по ключу
         found = self.FindNodeByKey(key)
-        if found.NodeHasKey:
+        if found.NodeHasKey and found.Node is not None:
             node = found.Node
             parent = node.Parent
+            if parent is None:
+                self.Root = None
+                return True
             new_node = self.FinMinMax(node, True)
             if node is new_node:
                 if node is parent.LeftChild:
