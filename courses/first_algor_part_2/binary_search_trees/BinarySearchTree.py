@@ -78,29 +78,70 @@ class BST:
     def DeleteNodeByKey(self, key):
         # удаляем узел по ключу
         found = self.FindNodeByKey(key)
-        if found.NodeHasKey and found.Node is not None:
+        if found.NodeHasKey is False:
+            return False
+
+        if found.NodeHasKey:
             node = found.Node
             parent = node.Parent
-            new_node = self.FinMinMax(node, True)
-            if node is new_node:
-                if parent is not None:
-                    if node is parent.LeftChild:
-                        parent.LeftChild = None
-                    if node is parent.RightChild:
-                        parent.RightChild = None
-                else:
-                    self.Root = None
-                return True
-            elif parent is None:
-                self.Root = new_node
+            leftChildren = node.LeftChild
+            if self.Count() == 1:
+                self.Root = None
                 return True
 
-            if node is parent.LeftChild:
-                parent.LeftChild = new_node
+            if self.Root is node:
+                new_node = self.FinMinMax(node.RightChild, False)
+                new_node_parent = new_node.Parent
+                if new_node_parent.LeftChild is node:
+                    new_node_parent.LeftChild = None
+                if new_node_parent.RightChild is node:
+                    new_node_parent.RightChild = None
+
+                new_node.LeftChild = node.LeftChild
+                new_node.RightChild = node.RightChild
                 return True
-            if node is parent.RightChild:
-                parent.RightChild = new_node
+
+            if node.LeftChild is not None and node.RightChild is not None:
+                new_node = self.FinMinMax(node.RightChild, False)
+                new_node.LeftChild = leftChildren
+                new_node.Parent = parent
+                if parent.LeftChild is node:
+                    parent.LeftChild = new_node
+                if parent.RightChild is node:
+                    parent.RightChild = new_node
+
                 return True
+
+            if node.LeftChild is not None or node.RightChild is not None:
+                parent = node.Parent
+                child = None
+
+                if node.RightChild is not None:
+                    child = node.RightChild
+                elif node.LeftChild is not None:
+                    child = node.LeftChild
+
+                if parent is None:
+                    self.Root = child
+                elif node.NodeKey < parent.NodeKey:
+                    parent.LeftChild = child
+                else:
+                    parent.RightChild = child
+
+                if child is not None:
+                    child.Parent = parent
+
+                return True
+
+            if node.LeftChild is None and node.RightChild is None:
+                if parent.RightChild is node:
+                    parent.RightChild = None
+                if parent.LeftChild is node:
+                    parent.LeftChild = None
+                return True
+
+            return True
+
         return False  # если узел не найден
 
     def Count(self) -> int:
