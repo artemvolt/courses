@@ -112,6 +112,13 @@ class BST:
 
                 return True
 
+            if node.LeftChild is None and node.RightChild is None:
+                if parent.RightChild is node:
+                    parent.RightChild = None
+                if parent.LeftChild is node:
+                    parent.LeftChild = None
+                return True
+
             if node.LeftChild is not None or node.RightChild is not None:
                 parent = node.Parent
                 child = None
@@ -133,12 +140,7 @@ class BST:
 
                 return True
 
-            if node.LeftChild is None and node.RightChild is None:
-                if parent.RightChild is node:
-                    parent.RightChild = None
-                if parent.LeftChild is node:
-                    parent.LeftChild = None
-                return True
+
 
             return True
 
