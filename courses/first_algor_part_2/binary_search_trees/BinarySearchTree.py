@@ -81,15 +81,18 @@ class BST:
         if found.NodeHasKey and found.Node is not None:
             node = found.Node
             parent = node.Parent
-            if parent is None:
-                self.Root = None
-                return True
             new_node = self.FinMinMax(node, True)
             if node is new_node:
-                if node is parent.LeftChild:
-                    parent.LeftChild = None
-                if node is parent.RightChild:
-                    parent.RightChild = None
+                if parent is not None:
+                    if node is parent.LeftChild:
+                        parent.LeftChild = None
+                    if node is parent.RightChild:
+                        parent.RightChild = None
+                else:
+                    self.Root = None
+                return True
+            elif parent is None:
+                self.Root = new_node
                 return True
 
             if node is parent.LeftChild:
