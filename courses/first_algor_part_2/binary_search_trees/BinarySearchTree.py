@@ -23,9 +23,14 @@ class BST:
 
     def __init__(self, node: BSTNode = None):
         self.Root = node  # корень дерева, или None
-        self.count = 0
 
     def FindNodeByKeyRecursive(self, key, node: BSTNode) -> BSTFind:
+        """
+
+        :param key:
+        :param node: BSTNode
+        :return: BSTFind
+        """
         if key < node.NodeKey and node.LeftChild is not None:
             return self.FindNodeByKeyRecursive(key, node.LeftChild)
 
@@ -42,14 +47,24 @@ class BST:
 
         return result
 
-    def FindNodeByKey(self, key):
+    def FindNodeByKey(self, key) -> BSTFind:
+        """
+
+        :param key:
+        :return: BSTFind
+        """
         # ищем в дереве узел и сопутствующую информацию по ключу
         if self.Root is None:
             return BSTFind()
         return self.FindNodeByKeyRecursive(key, self.Root)
 
     def AddKeyValue(self, key, val) -> bool:
-        # добавляем ключ-значение в дерево
+        """
+
+        :param key:
+        :param val:
+        :return: bool
+        """
         found = self.FindNodeByKey(key)
         if found.NodeHasKey:
             return False
@@ -66,8 +81,12 @@ class BST:
         return True  # если ключ уже есть
 
     def FinMinMax(self, FromNode: BSTNode, FindMax: bool) -> BSTNode:
-        # ищем максимальный/минимальный ключ в поддереве
-        # возвращается объект типа BSTNode
+        """
+
+        :param FromNode: BSTNode
+        :param FindMax: bool
+        :return: BSTNode
+        """
         right = FromNode.RightChild
         left = FromNode.LeftChild
         node = right if FindMax is True else left
@@ -76,86 +95,94 @@ class BST:
         return self.FinMinMax(node, FindMax)
 
     def DeleteNodeByKey(self, key):
-        # удаляем узел по ключу
+        """
+
+        :param key:
+        :return:
+        """
         found = self.FindNodeByKey(key)
         if found.NodeHasKey is False:
             return False
 
-        if found.NodeHasKey:
-            node = found.Node
-            parent = node.Parent
-            leftChildren = node.LeftChild
-            if self.Count() == 1:
-                self.Root = None
-                return True
-
-            if self.Root is node:
-                new_node = self.FinMinMax(node.RightChild, False)
-                new_node_parent = new_node.Parent
-                if new_node_parent.LeftChild is node:
-                    new_node_parent.LeftChild = None
-                if new_node_parent.RightChild is node:
-                    new_node_parent.RightChild = None
-
-                new_node.LeftChild = node.LeftChild
-                new_node.RightChild = node.RightChild
-                return True
-
-            if node.LeftChild is not None and node.RightChild is not None:
-                new_node = self.FinMinMax(node.RightChild, False)
-                new_node.LeftChild = leftChildren
-                new_node.Parent = parent
-                if parent.LeftChild is node:
-                    parent.LeftChild = new_node
-                if parent.RightChild is node:
-                    parent.RightChild = new_node
-
-                return True
-
-            if node.LeftChild is None and node.RightChild is None:
-                if parent.RightChild is node:
-                    parent.RightChild = None
-                if parent.LeftChild is node:
-                    parent.LeftChild = None
-                return True
-
-            if node.LeftChild is not None or node.RightChild is not None:
-                parent = node.Parent
-                child = None
-
-                if node.RightChild is not None:
-                    child = node.RightChild
-                elif node.LeftChild is not None:
-                    child = node.LeftChild
-
-                if parent is None:
-                    self.Root = child
-                elif node.NodeKey < parent.NodeKey:
-                    parent.LeftChild = child
-                else:
-                    parent.RightChild = child
-
-                if child is not None:
-                    child.Parent = parent
-
-                return True
-
-
-
+        foundNode = found.Node
+        if foundNode.LeftChild is None or foundNode.RightChild is None:
+            self.balance_node(foundNode)
             return True
 
-        return False  # если узел не найден
+        parent = foundNode.Parent
+        foundMin = self.FinMinMax(foundNode.RightChild, False)
+        self.balance_node(foundMin)
+        foundMin.LeftChild = foundNode.LeftChild
+        foundMin.RightChild = foundNode.RightChild
+        foundNode.LeftChild.Parent = foundMin
+
+        if foundNode.RightChild is not None:
+            foundNode.RightChild.Parent = foundMin
+
+        foundMin.Parent = parent
+
+        if parent is None:
+            self.Root = foundMin
+        elif foundMin.NodeKey < parent.NodeKey:
+            parent.LeftChild = foundMin
+        else:
+            parent.RightChild = foundMin
+
+        return True
+
+    def balance_node(self, node: BSTNode):
+        """
+        Case when node does not have left or right child.
+        :param node:
+        """
+        parent = node.Parent
+        child = None
+
+        if node.RightChild is not None:
+            child = node.RightChild
+        elif node.LeftChild is not None:
+            child = node.LeftChild
+
+        if parent is None:
+            self.Root = child
+        elif node.NodeKey < parent.NodeKey:
+            parent.LeftChild = child
+        else:
+            parent.RightChild = child
+
+        if child is not None:
+            child.Parent = parent
 
     def Count(self) -> int:
-        self.count = 0
-        self.Count_Recursive(self.Root)
-        return self.count
+        return self.Count_Recursive(self.Root)
 
-    def Count_Recursive(self, node):
+    def Count_Recursive(self, node) -> int:
+        """
+        count nodes of tree recursive
+        :param node:
+        :return:
+        """
+        count = 0
         if node is None:
-            return self.count
-        self.count += 1
+            return count
+
+        count += 1
+
         if node.LeftChild is not None:
-            self.Count_Recursive(node.LeftChild)
+            count += self.Count_Recursive(node.LeftChild)
         if node.RightChild is not None:
-            self.Count_Recursive(node.RightChild)
+            count += self.Count_Recursive(node.RightChild)
+
+        return count
+
+    def Print(self, node):
+        """
+        print nodes with parent
+        :param node:
+        """
+        parent = None if node.Parent is None else node.Parent.NodeValue
+        print('parent: ', parent, 'node:', node.NodeValue)
+        if node.LeftChild is not None:
+            self.Print(node.LeftChild)
+        if node.RightChild is not None:
+            self.Print(node.RightChild)

@@ -175,7 +175,9 @@ class BinarySearchTreeTest(unittest.TestCase):
 
         [tree, first, fourth, twelve, two, six, ten, fourtheen] = self.create_tree()
         self.assertTrue(tree.FindNodeByKey(10).NodeHasKey)
+        self.assertEqual(7, tree.Count())
         tree.DeleteNodeByKey(10)
+        self.assertEqual(6, tree.Count())
         self.assertFalse(tree.FindNodeByKey(10).NodeHasKey)
         self.assertEqual(first, tree.Root)
         self.assertEqual(fourth, first.LeftChild)
@@ -186,8 +188,11 @@ class BinarySearchTreeTest(unittest.TestCase):
         self.assertTrue(tree.FindNodeByKey(4).NodeHasKey)
         tree.DeleteNodeByKey(4)
         self.assertFalse(tree.FindNodeByKey(4).NodeHasKey)
+        self.assertEqual(5, tree.Count())
+
         self.assertEqual(first, tree.Root)
-        self.assertEqual(six, first.LeftChild)
+        self.assertEqual(six.NodeValue, first.LeftChild.NodeValue)
+        self.assertEqual(two, six.LeftChild)
         self.assertEqual(twelve, first.RightChild)
 
     def test_delete_root(self):
@@ -196,4 +201,3 @@ class BinarySearchTreeTest(unittest.TestCase):
         self.assertTrue(tree.DeleteNodeByKey(1))
         self.assertFalse(tree.FindNodeByKey(1).NodeHasKey)
         self.assertTrue(tree.Root is None)
-
