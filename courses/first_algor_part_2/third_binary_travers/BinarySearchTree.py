@@ -265,10 +265,10 @@ class BST:
         result = []
 
         if node.LeftChild is not None:
-            self.DeepAllNodesPreOrder(_type, node.LeftChild)
+            self.DeepAllNodesPostOrder(_type, node.LeftChild)
 
         if node.RightChild is not None:
-            self.DeepAllNodesPreOrder(_type, node.RightChild)
+            self.DeepAllNodesPostOrder(_type, node.RightChild)
 
         result.append(node)
 
