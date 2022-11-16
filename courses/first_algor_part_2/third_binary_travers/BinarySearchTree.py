@@ -251,7 +251,7 @@ class BST:
         result.append(node)
 
         if node.RightChild is not None:
-            result += self.DeepAllNodesInOrder(_type, node.LeftChild)
+            result += self.DeepAllNodesInOrder(_type, node.RightChild)
 
         return result
 
@@ -268,7 +268,7 @@ class BST:
             self.DeepAllNodesPreOrder(_type, node.LeftChild)
 
         if node.RightChild is not None:
-            self.DeepAllNodesPreOrder(_type, node.LeftChild)
+            self.DeepAllNodesPreOrder(_type, node.RightChild)
 
         result.append(node)
 
@@ -287,6 +287,6 @@ class BST:
             self.DeepAllNodesPreOrder(_type, node.LeftChild)
 
         if node.RightChild is not None:
-            self.DeepAllNodesPreOrder(_type, node.LeftChild)
+            self.DeepAllNodesPreOrder(_type, node.RightChild)
 
         return result
