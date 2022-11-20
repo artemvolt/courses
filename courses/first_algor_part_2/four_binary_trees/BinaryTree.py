@@ -1,17 +1,30 @@
 class aBST:
-
-    def __init__(self, depth):
+    """
+    Binary Search Tree
+    """
+    def __init__(self, depth: int):
         # правильно рассчитайте размер массива для дерева глубины depth:
-        tree_size = 2**depth + 2**depth - 1
+        tree_size = 2 ** depth + 2 ** depth - 1
         self.Tree = [None] * tree_size  # массив ключей
 
     def FindKeyIndex(self, key):
+        """
+
+        :param key:
+        :return:
+        """
         # ищем в массиве индекс ключа
         if len(self.Tree) > 0:
             return self.FindKeyIndexRecursive(key, 0)
         return None  # не найден
 
-    def FindKeyIndexRecursive(self, key, index):
+    def FindKeyIndexRecursive(self, key, index: int):
+        """
+
+        :param key:
+        :param index: int
+        :return:
+        """
         # ищем в массиве индекс ключа
         if self.Tree[index] == key:
             return index
@@ -28,7 +41,12 @@ class aBST:
 
         return None  # не найден
 
-    def AddKey(self, key):
+    def AddKey(self, key) -> int:
+        """
+
+        :param key:
+        :return: int
+        """
         # добавляем ключ в массив
         existing = self.FindKeyIndex(key)
         if existing is None:
@@ -38,4 +56,3 @@ class aBST:
             self.Tree[abs(existing)] = key
 
         return abs(existing)
-        # индекс добавленного/существующего ключа или -1 если не удалось
