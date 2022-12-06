@@ -30,7 +30,7 @@ class BalancedBST:
             if len(left_subtree) > 0:
                 node.LeftChild = self.GenerateTreeRecursive(left_subtree, node, next_level)
 
-            right_subtree = sorted_array[middle_index + 1:]
+            right_subtree = sorted_array[middle_index:]
             if len(right_subtree) > 0:
                 node.RightChild = self.GenerateTreeRecursive(right_subtree, node, next_level)
         return node
