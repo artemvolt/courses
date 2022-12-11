@@ -10,7 +10,6 @@ class Heap:
         self.HeapArray = [None] * heap_size
         for value in a:
             self.Add(value)
-        pass
 
     def GetMax(self):
         # вернуть значение корня и перестроить кучу
