@@ -63,7 +63,7 @@ class Heap:
 
         return value
 
-    def Add(self, key):
+    def Add(self, key) -> bool:
         # добавляем новый элемент key в кучу и перестраиваем её
         if None not in self.HeapArray:
             return False  # если куча вся заполнена
@@ -71,7 +71,7 @@ class Heap:
         last_for_insert_index = self.HeapArray.index(None)
         self.HeapArray[last_for_insert_index] = key
         if last_for_insert_index == 0:
-            return
+            return True
 
         compare_index = last_for_insert_index
         while compare_index > 0:
