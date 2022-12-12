@@ -20,6 +20,10 @@ class Heap:
         if value is None:
             return -1  # если куча пуста
 
+        if len(self.HeapArray) > 1 and self.HeapArray[1] is None:
+            self.HeapArray[0] = None
+            return value
+
         try:
             last_index = self.HeapArray.index(None) - 1
             value_for_move = self.HeapArray[last_index]
@@ -34,11 +38,19 @@ class Heap:
         while current_index >= 0:
             left_child_index = 2 * current_index + 1
             right_child_index = 2 * current_index + 2
-            left_child_value = self.HeapArray[left_child_index]
-            right_child_value = self.HeapArray[right_child_index]
+
+            try:
+                left_child_value = self.HeapArray[left_child_index]
+            except IndexError:
+                left_child_value = None
+
+            try:
+                right_child_value = self.HeapArray[right_child_index]
+            except IndexError:
+                right_child_value = None
+
             current_value = self.HeapArray[current_index]
             max_index = None
-
             if left_child_value is None and right_child_value is None:
                 break
 
