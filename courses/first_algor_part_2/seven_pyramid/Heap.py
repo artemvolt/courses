@@ -49,7 +49,11 @@ class Heap:
             except IndexError:
                 right_child_value = None
 
-            current_value = self.HeapArray[current_index]
+            try:
+                current_value = self.HeapArray[current_index]
+            except IndexError:
+                current_value = None
+
             max_index = None
             if left_child_value is None and right_child_value is None:
                 break
@@ -65,7 +69,14 @@ class Heap:
                 if right_child_value > left_child_value:
                     max_index = right_child_index
 
-            max_index_value = self.HeapArray[max_index]
+            try:
+                max_index_value = self.HeapArray[max_index]
+            except IndexError:
+                max_index_value = None
+
+            if current_value is None or max_index_value is None:
+                break
+
             if current_value > max_index_value:
                 break
             if current_value < max_index_value:
