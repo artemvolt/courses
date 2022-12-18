@@ -31,16 +31,16 @@ class SimpleGraph:
             self.m_adjacency[i][v] = 0
             self.m_adjacency[v][i] = 0
 
-    def IsEdge(self, v1, v2):
+    def IsEdge(self, v1: int, v2: int) -> bool:
         # True если есть ребро между вершинами v1 и v2
         return self.m_adjacency[v1][v2] == 1
 
-    def AddEdge(self, v1: int, v2: int):
+    def AddEdge(self, v1: int, v2: int) -> None:
         # добавление ребра между вершинами v1 и v2
         self.m_adjacency[v1][v2] = 1
         self.m_adjacency[v2][v1] = 1
 
-    def RemoveEdge(self, v1: int, v2: int):
+    def RemoveEdge(self, v1: int, v2: int) -> None:
         # удаление ребра между вершинами v1 и v2
         self.m_adjacency[v1][v2] = 0
         self.m_adjacency[v2][v1] = 0
