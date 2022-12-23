@@ -255,7 +255,7 @@ class SimpleTree:
         :param nodes_for_remove: list
         :return:
         """
-        count = 0
+        count = 1
         for child in node.Children:
             count += self.EvenTreesRecursive(child, nodes_for_remove)
         if count % 2 == 0 and node.Parent:
