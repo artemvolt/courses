@@ -50,32 +50,44 @@ class SimpleGraph:
         # узлы задаются позициями в списке vertex
         # возвращается список узлов -- путь из VFrom в VTo
         # или [] если пути нету
+
         for vertexItem in self.vertex:
-            vertexItem.Hit = False
+            if vertexItem is not None:
+                vertexItem.Hit = False
 
+        current = VFrom
         stack = []
-        fromItem = self.vertex[VFrom]
-        fromItem.Hit = True
-        stack.append(fromItem)
+        while current is not None:
+            current_vertex = self.vertex[current]
+            if current_vertex.Hit is False:
+                current_vertex.Hit = True
+                stack.append(current)
 
-        if self.IsEdge(VFrom, VTo):
-            stack.append(self.vertex[VTo])
-            return stack
+            if self.IsEdge(current, VTo):
+                stack.append(VTo)
+                current = None
+                continue
 
-        foundVTo = self.FindNearestNoneHitVertex(VTo)
-        if foundVTo != VTo:
-            stack = stack + self.DepthFirstSearch(foundVTo, VTo)
+            is_have_none_hit = False
+            for index, item in enumerate(self.vertex):
+                if self.IsEdge(current, index) and item.Hit is False:
+                    current = index
+                    is_have_none_hit = True
+                    break
 
-        if foundVTo is None:
-            stack.pop()
+            if is_have_none_hit is True:
+                continue
 
-        if len(stack) == 0:
-            return []
+            stack.pop(0)
 
-        return stack
+            if len(stack) == 0:
+                return []
 
-    def FindNearestNoneHitVertex(self, vertexIndex: int):
-        for anotherIndex, anotherVertex in enumerate(self.vertex):
-            if anotherIndex != vertexIndex and anotherVertex.Hit is False:
-                return anotherIndex
-        return None
+            current = stack[-1]
+            self.vertex[current].Hit = True
+
+        result = []
+        for idx in stack:
+            result.append(self.vertex[idx])
+
+        return result

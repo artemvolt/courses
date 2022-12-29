@@ -7,6 +7,11 @@ from courses.first_algor_part_2.ten_find_route.Graph import SimpleGraph, Vertex
 
 
 class GraphTest(unittest.TestCase):
+
+    def addVertexes(self, graph, arr):
+        for val in arr:
+            graph.AddVertex(val)
+
     def test_find_through_near(self):
         graph = SimpleGraph(3)
         graph.AddVertex('A')
@@ -34,3 +39,15 @@ class GraphTest(unittest.TestCase):
         self.assertEqual(2, len(result))
         self.assertEqual(result[0].Value, 'A')
         self.assertEqual(result[1].Value, 'B')
+
+    def test_find_none_existing(self):
+        graph = SimpleGraph(5)
+        graph.AddVertex('A')
+        graph.AddVertex('B')
+        graph.AddVertex('C')
+        graph.AddEdge(0, 1)
+        graph.AddEdge(0, 2)
+
+        result = graph.DepthFirstSearch(0, 4)
+
+        self.assertEqual(0, len(result))
