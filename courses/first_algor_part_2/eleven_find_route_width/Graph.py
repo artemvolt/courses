@@ -102,13 +102,11 @@ class SimpleGraph:
 
         current = VFrom
         queue = []
-        path = []
-        while current is not None:
-            current_vertex = self.vertex[current]
-            if current_vertex.Hit is False:
-                current_vertex.Hit = True
-                path[current] = current
+        path = {}
+        self.vertex[current].Hit = True
+        path[current] = [current]
 
+        while current is not None:
             if self.IsEdge(current, VTo):
                 p = path[current].copy()
                 p.append(VTo)
@@ -121,21 +119,21 @@ class SimpleGraph:
             for index, item in enumerate(self.vertex):
                 if self.IsEdge(current, index) and item.Hit is False:
                     is_have_none_hit = True
-                    self.vertex[index].Hit = True
+                    item.Hit = True
                     queue.append(index)
                     p = path[current].copy()
                     p.append(index)
                     path[index] = p
 
-                if is_have_none_hit:
-                    path.pop(current)
-                if len(queue) == 0:
-                    return []
-                else:
-                    current = queue.pop(0)
+            if is_have_none_hit is True:
+                path.pop(current)
+            if len(queue) == 0:
+                return []
+            else:
+                current = queue.pop(0)
 
         result = []
-        for idx in queue:
+        for idx in path[VTo]:
             result.append(self.vertex[idx])
 
         return result
